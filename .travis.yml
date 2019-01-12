@@ -1,0 +1,20 @@
+language: php
+php:
+  - '5.6'
+  - '7.0'
+
+# 项目所在分支
+branches:
+  only:
+  - master
+
+# 配置环境
+before_install:
+
+install:
+  - composer install --prefer-dist --optimize-autoloader --quiet
+
+script:
+
+after_success:
+
