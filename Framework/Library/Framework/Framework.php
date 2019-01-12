@@ -70,9 +70,6 @@ class Framework
     private function funBoot()
     {
         (new Pipeline())
-            ->pipe(Hook::getInstance()->beforeFramework())
-            //->pipe(Framework::getInstance())
-            ->pipe(Hook::getInstance()->afterFramework())
             ->pipe(Hook::getInstance()->beforeRouter())
             ->pipe(Router::getInstance())
             ->pipe(Hook::getInstance()->afterRouter())
