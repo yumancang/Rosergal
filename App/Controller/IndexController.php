@@ -6,7 +6,7 @@ namespace App\Controller;
 
 
 
-use Twinkle\Controller\Controller;
+use Twinkle\Library\CommonController\Controller;
 
 class IndexController extends Controller
 {

@@ -24,13 +24,13 @@ class GoodsPolicyModel extends MysqlBase
     {
         parent::__construct();
         //主库
-        \Twinkle\Framework\Database\DB::setConfig(array(
+        \Twinkle\Library\Framework\Database\DB::setConfig(array(
             "dsn" => "mysql:host=".DB_HOST_POLICY.";port=".DB_POLICY_PORT.";dbname=".DB_NAME_POLICY,
             "username" => DB_USER_POLICY,
             "password" => DB_PWD_POLICY
         ),'policy');
         
-        $this->policyDb = \Twinkle\Framework\Database\DB::getInstance("policy");
+        $this->policyDb = \Twinkle\Library\Framework\Database\DB::getInstance("policy");
     }
     
     public function getGoodsByRules($catId,$hotNum,$latendNum)

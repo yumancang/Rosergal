@@ -1,7 +1,7 @@
 <?php
 namespace App\Plugin;
 
-use Twinkle\Plugin\PluginAbstract;
+use Twinkle\Library\Plugin\PluginAbstract;
 
 class FilterParamPlugin extends PluginAbstract
 {

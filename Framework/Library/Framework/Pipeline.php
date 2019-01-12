@@ -4,7 +4,7 @@
  * @author yumancang <laifaluo@126.com>
  *
  * */
-namespace Twinkle\Framework;
+namespace Twinkle\Library\Framework;
 
 use InvalidArgumentException;
 

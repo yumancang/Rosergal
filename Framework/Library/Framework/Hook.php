@@ -6,10 +6,10 @@
  * Time: 10:37
  */
 
-namespace Twinkle\Framework;
+namespace Twinkle\Library\Framework;
 
 
-use Twinkle\Plugin\PluginInterface;
+use Twinkle\Library\Plugin\PluginInterface;
 
 class Hook
 {

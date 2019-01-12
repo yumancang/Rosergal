@@ -7,7 +7,7 @@
 
  
 namespace Twinkle\Base;
-use Twinkle\Framework\Database\DB as DB;
+use Twinkle\Library\Framework\Database\DB as DB;
 
 
 class MysqlBase extends DB
@@ -19,22 +19,22 @@ class MysqlBase extends DB
     public function __construct()
     {
         //从库
-        \Twinkle\Framework\Database\DB::setConfig(array(
+        \Twinkle\Library\Framework\Database\DB::setConfig(array(
             "dsn" => "mysql:host=".DB_HOST_SLAVE_NEW.";port=".DB_HOST_SLAVE_PORT.";dbname=".DB_NAME_SLAVE,
             "username" => DB_USER_SLAVE,
             "password" => DB_PWD_SLAVE
         ),'slave');
         
-        $this->slaveDb = \Twinkle\Framework\Database\DB::getInstance("slave");
+        $this->slaveDb = \Twinkle\Library\Framework\Database\DB::getInstance("slave");
         
         //主库
-        \Twinkle\Framework\Database\DB::setConfig(array(
+        \Twinkle\Library\Framework\Database\DB::setConfig(array(
             "dsn" => "mysql:host=".DB_HOST_NEW.";port=".DB_HOST_PORT.";dbname=".DB_DATABASE,
             "username" => DB_USER,
             "password" => DB_PASSWORD
         ),'master');
         
-        $this->masterDb = \Twinkle\Framework\Database\DB::getInstance("master");
+        $this->masterDb = \Twinkle\Library\Framework\Database\DB::getInstance("master");
     }
 
     public function getInfoByCondition($condition, $field = '*', $orderBy = 'id desc')
@@ -66,13 +66,13 @@ class MysqlBase extends DB
 }
 
 /*
-\Twinkle\Framework\Database\DB::setConfig(array(
+\Twinkle\Library\Framework\Database\DB::setConfig(array(
     "dsn" => "mysql:host=192.168.6.71;dbname=rosegal_db",
     "username" => "root",
     "password" => "NvGHHsQvo3!90YS@"
 ));
 
-$db = \Twinkle\Framework\Database\DB::getInstance("default");
+$db = \Twinkle\Library\Framework\Database\DB::getInstance("default");
 
 
 $goods = new \Twinkle\Model\Mysql\Goods();
@@ -81,22 +81,22 @@ $count = $goods->getGoodsTotals();
 
 
 //从库
-\Twinkle\Framework\Database\DB::setConfig(array(
+\Twinkle\Library\Framework\Database\DB::setConfig(array(
     "dsn" => "mysql:host=192.168.6.71;dbname=rosegal_db",
     "username" => "root",
     "password" => "NvGHHsQvo3!90YS@"
 ),'slave');
 
-$slaveDb = \Twinkle\Framework\Database\DB::getInstance("slave");
+$slaveDb = \Twinkle\Library\Framework\Database\DB::getInstance("slave");
 
 //主库
-\Twinkle\Framework\Database\DB::setConfig(array(
+\Twinkle\Library\Framework\Database\DB::setConfig(array(
     "dsn" => "mysql:host=192.168.6.71;dbname=rosegal_db",
     "username" => "root",
     "password" => "NvGHHsQvo3!90YS@"
 ),'master');
 
-$masterDb = \Twinkle\Framework\Database\DB::getInstance("master");
+$masterDb = \Twinkle\Library\Framework\Database\DB::getInstance("master");
 
 
 

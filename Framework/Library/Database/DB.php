@@ -1,5 +1,5 @@
 <?php
-namespace Twinkle\Framework\Database;
+namespace Twinkle\Library\Framework\Database;
 
 /**
  * DB - MySQL database library

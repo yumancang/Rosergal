@@ -1,36 +1,113 @@
 <?php
 /**
- * 入口初始化配置和常量
- * @author yumancang <laifaluo@126.com>
+ * RGPC应用实例
+ *
+ * @author yumancang
  *
  * */
-namespace Twinkle\Framework;
+namespace Twinkle\Library\Framework;
 
-use InvalidArgumentException;
-use Autoloader;
+
+use Twinkle\Library\Config\ConfigLoader;
 
 class Framework
 {
-    
-    private static $_instance = null;
+    /**
+     *
+     * 全局容器
+     *
+     * */
+    private $container;
 
-    
-    private function __construct() 
+
+    final public static function Bootstrap()
     {
+        (new self(Container::getInstance()))->funBoot();
     }
-    
-    public static function getInstance() 
+
+    /**
+     *
+     * 构造函数
+     * @param Container $RContainer
+     *
+     * */
+    private function __construct(Container $RContainer = null)
     {
-        if (null === self::$_instance) {
-            self::$_instance = new self();
+        $this->preInit();
+
+        define('FRAMEWORK_PATH', str_replace('/Framework/Library/Framework/Framework.php', '', str_replace('\\', '/', __FILE__)));
+
+        $this->container = $RContainer;
+
+        #自定义错误异常处理
+        /* set_error_handler(function(){
+            
+        });
+        set_exception_handler(function(){
+            
+        });
+        register_shutdown_function(function(){
+            
+        });
+        spl_autoload_register(function(){
+            
+        }); */
+
+        #注入系统组件
+        $RContainer->initializationComponent();
+
+        #注入系统插件
+        $RContainer->initializationPlugin();
+
+        #注入业务组件
+
+        ConfigLoader::LoadConfig(FRAMEWORK_PATH . '/Config', 'alias_class.php');
+        foreach (ConfigLoader::$Config['alias_class.php'] as $name => $classname) {
+            $RContainer->make($name, $classname);
         }
-        return self::$_instance;
-    }
-    
-    public function handler()
-    {
-        
-    }
-    
 
+        #注入业务插件
+        ConfigLoader::LoadConfig(FRAMEWORK_PATH . '/Config', 'plugin.php');
+        foreach (ConfigLoader::$Config['plugin.php'] as $configFilename => $pluginClassPath) {
+            Hook::getInstance()->registerPlugin($configFilename, new $pluginClassPath());
+        }
+
+        $this->init();
+    }
+
+    /**
+     *
+     * 前台AJAX入口
+     * @param object $RContainer
+     * @return void
+     *
+     * */
+    private function funBoot()
+    {
+        (new Pipeline())
+            ->pipe(Hook::getInstance()->beforeFramework())
+            ->pipe(Framework::getInstance())
+            ->pipe(Hook::getInstance()->afterFramework())
+            ->pipe(Hook::getInstance()->beforeRouter())
+            ->pipe(Router::getInstance())
+            ->pipe(Hook::getInstance()->afterRouter())
+            ->pipe(Hook::getInstance()->beforeDispatch())
+            ->pipe(Dispatch::getInstance())
+            ->pipe(Hook::getInstance()->afterDispatch())
+            ->pipe(Hook::getInstance()->beforeView())
+            ->pipe(View::getInstance())
+            ->pipe(Hook::getInstance()->afterView())
+            ->process();
+    }
+
+    protected function preInit()
+    {
+
+    }
+
+    protected function init()
+    {
+
+    }
 }
+

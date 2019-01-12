@@ -1,5 +1,5 @@
 <?php
-namespace Twinkle\Adapter;
+namespace Twinkle\Library\ConfigAdapter;
 /**
  * 适配器接口
  * @author yumancang

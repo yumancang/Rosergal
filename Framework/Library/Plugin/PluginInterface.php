@@ -1,5 +1,5 @@
 <?php
-namespace Twinkle\Plugin;
+namespace Twinkle\Library\Plugin;
 
 interface PluginInterface
 {

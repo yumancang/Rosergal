@@ -8,7 +8,7 @@
  * */
  
 
-namespace Twinkle\Common;
+namespace Twinkle\Library\Common;
 
 
 trait InitRedisTrait 

@@ -6,10 +6,10 @@
  * */
 
  
-namespace Twinkle\Service;
+namespace Twinkle\Library\Service;
 
-use Twinkle\Service\ServiceProvider;
-use Twinkle\Framework\Container;
+use Twinkle\Library\Service\ServiceProvider;
+use Twinkle\Library\Framework\Container;
 
 
 class RedisDbServiceProvider extends ServiceProvider

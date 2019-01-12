@@ -4,10 +4,10 @@
  * @author yumancang <laifaluo@126.com>
  *
  * */
-namespace Twinkle\Framework;
+namespace Twinkle\Library\Framework;
 
-use Twinkle\Common\Response;
-use Twinkle\Common\Request;
+use Twinkle\Library\Common\Response;
+use Twinkle\Library\Common\Request;
 class Dispatch
 {
     

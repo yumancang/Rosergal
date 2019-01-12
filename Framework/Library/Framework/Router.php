@@ -4,10 +4,10 @@
  * @author yumancang <laifaluo@126.com>
  *
  * */
-namespace Twinkle\Framework;
+namespace Twinkle\Library\Framework;
 
-use Twinkle\Common\Request;
-use Twinkle\Plugin\RouterPlugin;
+use Twinkle\Library\Common\Request;
+use Twinkle\Library\Plugin\RouterPlugin;
 
 class Router
 {
@@ -37,7 +37,7 @@ class Router
     public function handler()
     {
         $strategy = 'GeneralStrategy';
-        list($module, $action, $params) = (new \Twinkle\Router\GeneralStrategy())->parseUrl();
+        list($module, $action, $params) = (new \Twinkle\Library\Router\GeneralStrategy())->parseUrl();
  
         $this->module = $module !== false ? $module : $this->module;
         $this->action = $action !== false ? $action : $this->action;

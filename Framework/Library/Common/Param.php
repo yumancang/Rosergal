@@ -8,7 +8,7 @@
  * @last modify			2011-10-21 by luolaifa
  */
  
-namespace Twinkle\Common;
+namespace Twinkle\Library\Common;
 
 class Param {
     /**

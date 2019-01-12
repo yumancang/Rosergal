@@ -5,7 +5,7 @@
  * @author Python Luo <laifaluo@126.com>
  * 
  * */
-namespace Twinkle\Common;
+namespace Twinkle\Library\Common;
 
 
 class InitdbBase

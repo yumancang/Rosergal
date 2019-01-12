@@ -25,6 +25,6 @@ function prend()
 
 require_once 'vendor/autoload.php';
 
-Twinkle\Framework\Rosegal::Bootstrap();
+App\Rosegal::Bootstrap();
 
 

@@ -1,5 +1,5 @@
 <?php
-namespace Twinkle\Plugin;
+namespace Twinkle\Library\Plugin;
 
 abstract class PluginAbstract implements PluginInterface
 {

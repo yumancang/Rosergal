@@ -4,7 +4,7 @@
  * @author yumancang <laifaluo@126.com>
  *
  * */
-namespace Twinkle\Config;
+namespace Twinkle\Library\Config;
 
 
 class ConfigLoader
