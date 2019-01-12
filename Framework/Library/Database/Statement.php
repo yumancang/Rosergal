@@ -1,5 +1,5 @@
 <?php
-namespace Twinkle\Library\Framework\Database;
+namespace Twinkle\Library\Database;
 
 /**
  * Statement

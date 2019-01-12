@@ -6,8 +6,8 @@
  * */
 
  
-namespace Twinkle\Base;
-use Twinkle\Library\Framework\Database\DB as DB;
+namespace Twinkle\Library\Database;
+use Twinkle\Library\Database\DB as DB;
 
 
 class Mysql extends DB
@@ -18,23 +18,23 @@ class Mysql extends DB
     
     public function __construct()
     {
-        //从库
-        \Twinkle\Library\Framework\Database\DB::setConfig(array(
+        /* //从库
+        \Twinkle\Library\Database\DB::setConfig(array(
             "dsn" => "mysql:host=".DB_HOST_SLAVE_NEW.";port=".DB_HOST_SLAVE_PORT.";dbname=".DB_NAME_SLAVE,
             "username" => DB_USER_SLAVE,
             "password" => DB_PWD_SLAVE
         ),'slave');
         
-        $this->slaveDb = \Twinkle\Library\Framework\Database\DB::getInstance("slave");
+        $this->slaveDb = \Twinkle\Library\Database\DB::getInstance("slave");
         
         //主库
-        \Twinkle\Library\Framework\Database\DB::setConfig(array(
+        \Twinkle\Library\Database\DB::setConfig(array(
             "dsn" => "mysql:host=".DB_HOST_NEW.";port=".DB_HOST_PORT.";dbname=".DB_DATABASE,
             "username" => DB_USER,
             "password" => DB_PASSWORD
         ),'master');
         
-        $this->masterDb = \Twinkle\Library\Framework\Database\DB::getInstance("master");
+        $this->masterDb = \Twinkle\Library\Database\DB::getInstance("master"); */
     }
 
     public function getInfoByCondition($condition, $field = '*', $orderBy = 'id desc')
