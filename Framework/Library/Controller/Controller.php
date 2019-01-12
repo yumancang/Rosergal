@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Twinkle\Library\CommonController;
+namespace Twinkle\Library\Controller;
 
 class Controller
 {

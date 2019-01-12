@@ -6,7 +6,7 @@ namespace App\Controller;
 
 
 
-use Twinkle\Library\CommonController\Controller;
+use Twinkle\Library\Controller\Controller;
 
 class UserController extends Controller
 {

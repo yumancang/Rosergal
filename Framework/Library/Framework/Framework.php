@@ -8,8 +8,6 @@
 namespace Twinkle\Library\Framework;
 
 
-use Twinkle\Library\Config\ConfigLoader;
-
 class Framework
 {
     /**
@@ -17,12 +15,12 @@ class Framework
      * 全局容器
      *
      * */
-    private $container;
+    protected $container;
 
 
     final public static function Bootstrap()
     {
-        (new self(Container::getInstance()))->funBoot();
+        (new static(Container::getInstance()))->funBoot();
     }
 
     /**
@@ -35,7 +33,7 @@ class Framework
     {
         $this->preInit();
 
-        define('FRAMEWORK_PATH', str_replace('/Framework/Library/Framework/Framework.php', '', str_replace('\\', '/', __FILE__)));
+        define('ROOT_PATH', str_replace('/Framework/Library/Framework/Framework.php', '', str_replace('\\', '/', __FILE__)));
 
         $this->container = $RContainer;
 
@@ -59,19 +57,6 @@ class Framework
         #注入系统插件
         $RContainer->initializationPlugin();
 
-        #注入业务组件
-
-        ConfigLoader::LoadConfig(FRAMEWORK_PATH . '/Config', 'alias_class.php');
-        foreach (ConfigLoader::$Config['alias_class.php'] as $name => $classname) {
-            $RContainer->make($name, $classname);
-        }
-
-        #注入业务插件
-        ConfigLoader::LoadConfig(FRAMEWORK_PATH . '/Config', 'plugin.php');
-        foreach (ConfigLoader::$Config['plugin.php'] as $configFilename => $pluginClassPath) {
-            Hook::getInstance()->registerPlugin($configFilename, new $pluginClassPath());
-        }
-
         $this->init();
     }
 
@@ -86,7 +71,7 @@ class Framework
     {
         (new Pipeline())
             ->pipe(Hook::getInstance()->beforeFramework())
-            ->pipe(Framework::getInstance())
+            //->pipe(Framework::getInstance())
             ->pipe(Hook::getInstance()->afterFramework())
             ->pipe(Hook::getInstance()->beforeRouter())
             ->pipe(Router::getInstance())
