@@ -8,46 +8,26 @@
  *
  * */
  
-namespace Twinkle\Model\Mysql;
+namespace App\Model;
  
-use Twinkle\Base\Mysql as Mysql;
-use Twinkle\Library\Framework\Container;
+use Twinkle\Library\Database\Mysql as Mysql;
 
 class UserModel extends Mysql 
 {
     
     public $tableName = 'eload_users';
     
-    public function __construct(Container $app = null)
+    public function __construct()
     {
        
-        parent::__construct($app);
+       parent::__construct();
     }
+
     
-    public function getUserPointNumByUserId($userId)
+    public function getUserInfo()
     {
-        $sql = "SELECT avaid_point FROM ".$this->tableName." WHERE user_id = ".intval($userId);
-    
-        $count = $this->slaveDb->executeQuery($sql)
-        ->fetchInto();
-       
-        return isset($count['avaid_point']) ? $count['avaid_point'] : 0;
-    }
-    
-    public function reduceUser20Point($userId)
-    {
-        $sql = "UPDATE ".$this->tableName." SET avaid_point = avaid_point - 20 WHERE user_id = ? ";
-        $object = $this->masterDb->executeQuery($sql, [intval($userId)]);
         
-        return $object->rowCount();
-    }
-    
-    public function addUserPointByCandles($userId,$point)
-    {
-        $sql = "UPDATE ".$this->tableName." SET avaid_point = avaid_point + ".$point." WHERE user_id = ? ";
-        $object = $this->masterDb->executeQuery($sql, [intval($userId)]);
-        
-        return $object->rowCount();
+        return ['yumangc'];
     }
 
 }
