@@ -35,7 +35,7 @@ abstract class Log implements StorageInterface
         foreach ($config as $p => $v) {
             if (in_array($p, $ex)) continue;
 
-            if (!$r->getProperty($p)->isPublic()) {
+            if ($r->getProperty($p)->isPublic()) {
                 $this->{$p} = $v;
                 continue;
             }

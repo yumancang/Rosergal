@@ -60,7 +60,7 @@ class File extends Log
         $log = new FileLine($message, $trace, $level, $context);
 
         if ($this->useBuffer) {
-            $this->logQueue = $log->format();
+            $this->logQueue[] = $log->format();
             if (count($this->logQueue) >= $this->bufferSize) {
                 $this->flushLogs();
             }

@@ -3,8 +3,7 @@
 function pre($arr)
 {
     $data = func_get_args();
-    foreach($data as $key=>$val)
-    {
+    foreach ($data as $key => $val) {
         echo '<pre>';
         print_r($val);
         echo '</pre>';
@@ -14,14 +13,15 @@ function pre($arr)
 function prend()
 {
     $data = func_get_args();
-    foreach($data as $key=>$val)
-    {
+    foreach ($data as $key => $val) {
         echo '<pre>';
         print_r($val);
         echo '</pre>';
     }
     exit();
 }
+
+define('ROOT_PATH', __DIR__);
 
 require_once 'vendor/autoload.php';
 

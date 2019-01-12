@@ -21,7 +21,7 @@ class GeneralStrategy implements RouterStrategy
     {
         
         $queryString = $_SERVER['QUERY_STRING'];
-        $queryArrTemp = explode('&', $queryString);
+        $queryArrTemp = array_filter(explode('&', $queryString));
         $queryArr = [];
         foreach ($queryArrTemp as $val) {
             list($paramName, $paramValue) = explode('=', $val);

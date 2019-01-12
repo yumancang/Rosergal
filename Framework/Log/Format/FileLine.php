@@ -22,10 +22,10 @@ class FileLine extends Base
             [
                 $this->request_id,
                 $this->create_time,
-                $this->location,
+                empty($this->location) ? '' : "file[{$this->location['file']}]  line[{$this->location['line']}]",
                 $this->level,
                 $this->message,
-                $this->content
+                json_encode($this->content),
             ]
         );
     }

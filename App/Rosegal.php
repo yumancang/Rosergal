@@ -10,14 +10,24 @@ namespace App;
 use Twinkle\Library\Config\ConfigLoader;
 use Twinkle\Library\Framework\Framework;
 use Twinkle\Library\Framework\Hook;
+use Twinkle\Log\Drivers\File;
+use Twinkle\Log\Logger;
 
 class Rosegal extends Framework
 {
 
     protected function preInit()
     {
-        echo 111;
         define('APP_PATH', __DIR__);
+
+        $this->container->injection('fileLogger', new Logger(new File([
+            'logPath' => ROOT_PATH . '/Runtime/logs',
+            'logFile' => 'app.log',
+            'useBuffer' => true,
+            'bufferSize' => 10,
+            'rotate' => 'day',
+        ])));
+
     }
 
     protected function init()

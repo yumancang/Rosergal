@@ -31,11 +31,13 @@ class Framework
      * */
     private function __construct(Container $RContainer = null)
     {
+        $this->container = $RContainer;
+
         $this->preInit();
 
-        define('ROOT_PATH', str_replace('/Framework/Library/Framework/Framework.php', '', str_replace('\\', '/', __FILE__)));
+        define('FRAMEWORK_PATH', str_replace('/Library/Framework/Framework.php', '', str_replace('\\', '/', __FILE__)));
 
-        $this->container = $RContainer;
+        $RContainer['fileLogger']->info('Framework:__construct');
 
         #自定义错误异常处理
         /* set_error_handler(function(){
@@ -70,9 +72,6 @@ class Framework
     private function funBoot()
     {
         (new Pipeline())
-            ->pipe(Hook::getInstance()->beforeFramework())
-            //->pipe(Framework::getInstance())
-            ->pipe(Hook::getInstance()->afterFramework())
             ->pipe(Hook::getInstance()->beforeRouter())
             ->pipe(Router::getInstance())
             ->pipe(Hook::getInstance()->afterRouter())
