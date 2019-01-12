@@ -9,9 +9,9 @@
 namespace Twinkle\Model\Mysql;
 
 
-use Twinkle\Base\MysqlBase;
+use Twinkle\Base\Mysql;
 
-class CouponCenterModel extends MysqlBase
+class CouponCenterModel extends Mysql
 {
 
     public $tableName = COUPON_CENTER;

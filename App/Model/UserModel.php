@@ -10,10 +10,10 @@
  
 namespace Twinkle\Model\Mysql;
  
-use Twinkle\Base\MysqlBase as MysqlBase;
+use Twinkle\Base\Mysql as Mysql;
 use Twinkle\Library\Framework\Container;
 
-class UserModel extends MysqlBase 
+class UserModel extends Mysql 
 {
     
     public $tableName = 'eload_users';

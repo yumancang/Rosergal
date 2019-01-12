@@ -10,10 +10,10 @@
  
 namespace Twinkle\Model\Mysql;
  
-use Twinkle\Base\MysqlBase as MysqlBase;
+use Twinkle\Base\Mysql as Mysql;
 
 
-class ArticleModel extends MysqlBase 
+class ArticleModel extends Mysql 
 {
     
     public function __construct()

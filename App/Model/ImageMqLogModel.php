@@ -9,10 +9,10 @@
  * */
 namespace Twinkle\Model\Mysql;
  
-use Twinkle\Base\MysqlBase as MysqlBase;
+use Twinkle\Base\Mysql as Mysql;
 
 
-class ImageMqLogModel extends MysqlBase 
+class ImageMqLogModel extends Mysql 
 {
     
     public function __construct()

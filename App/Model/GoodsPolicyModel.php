@@ -10,10 +10,10 @@
  
 namespace Twinkle\Model\Mysql;
  
-use Twinkle\Base\MysqlBase as MysqlBase;
+use Twinkle\Base\Mysql as Mysql;
 
 
-class GoodsPolicyModel extends MysqlBase 
+class GoodsPolicyModel extends Mysql 
 {
     
     public $tableName = 'public_v_dm_cloth_edm_market_goods';

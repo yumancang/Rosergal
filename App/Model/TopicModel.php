@@ -9,9 +9,9 @@
 namespace Twinkle\Model\Mysql;
 
 
-use Twinkle\Base\MysqlBase;
+use Twinkle\Base\Mysql;
 
-class TopicModel extends MysqlBase
+class TopicModel extends Mysql
 {
 
     public $tableName = 'eload_topic';

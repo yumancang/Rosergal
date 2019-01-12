@@ -10,11 +10,11 @@
  
 namespace Twinkle\Model\Mysql;
  
-use Twinkle\Base\MysqlBase as MysqlBase;
+use Twinkle\Base\Mysql as Mysql;
 use Twinkle\Library\Framework\Container;
 
 
-class PcodeModel extends MysqlBase 
+class PcodeModel extends Mysql 
 {
     public $tableName = 'eload_promotion_code';
     

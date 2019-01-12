@@ -9,9 +9,9 @@
 namespace Twinkle\Model\Mysql;
 
 
-use Twinkle\Base\MysqlBase;
+use Twinkle\Base\Mysql;
 
-class OrderSmsCheck extends MysqlBase
+class OrderSmsCheck extends Mysql
 {
 
     public $tableName = 'eload_order_sms_check';

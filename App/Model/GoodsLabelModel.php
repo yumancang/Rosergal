@@ -9,9 +9,9 @@
 namespace Twinkle\Model\Mysql;
 
 
-use Twinkle\Base\MysqlBase;
+use Twinkle\Base\Mysql;
 
-class GoodsLabelModel extends MysqlBase
+class GoodsLabelModel extends Mysql
 {
 
     public function updateLabel($goodsId, $labelArr)

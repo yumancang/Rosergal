@@ -10,11 +10,11 @@
  
 namespace Twinkle\Model\Mysql;
  
-use Twinkle\Base\MysqlBase as MysqlBase;
+use Twinkle\Base\Mysql as Mysql;
 use Twinkle\Library\Framework\Container;
 
 
-class OrderModel extends MysqlBase 
+class OrderModel extends Mysql 
 {
     
     public function __construct(Container $app = null)

@@ -10,7 +10,7 @@ namespace Twinkle\Base;
 use Twinkle\Library\Framework\Database\DB as DB;
 
 
-class MysqlBase extends DB
+class Mysql extends DB
 {   
     public $masterDb;
     

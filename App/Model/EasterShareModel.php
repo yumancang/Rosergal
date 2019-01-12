@@ -1,10 +1,10 @@
 <?php
 namespace Twinkle\Model\Mysql;
  
-use Twinkle\Base\MysqlBase as MysqlBase;
+use Twinkle\Base\Mysql as Mysql;
 
 
-class EasterShareModel extends MysqlBase 
+class EasterShareModel extends Mysql 
 {
     public $tableName = 'eload_easter_game_sharelist';
     
