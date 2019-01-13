@@ -49,7 +49,7 @@ abstract class Model
 
     public function insertData($data)
     {
-        return static::getConnection()->getWrite()->insert(static::tableName(), $data);
+        return $this->masterDb->insert(static::tableName(), $data);
     }
 
 }

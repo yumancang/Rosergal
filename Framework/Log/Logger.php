@@ -25,7 +25,12 @@ class Logger implements LoggerInterface
 
     public function log($level, $message, array $context = array())
     {
-        $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
+        if (isset($context['trace'])) {
+            $trace = $context['trace'];
+            unset($context['trace']);
+        } else {
+            $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
+        }
         $trace = !empty($trace) ? $trace[1] : [];
         $this->logger->process($level, $trace, $message, $context);
     }

@@ -248,6 +248,51 @@ class DB extends \PDO
     }
 
     /**
+     *
+     * Begins a transaction and turns off autocommit mode.
+     *
+     * @return bool True on success, false on failure.
+     *
+     * @see http://php.net/manual/en/pdo.begintransaction.php
+     *
+     */
+    public function beginTransaction()
+    {
+        $this->connect();
+        return $this->pdo->beginTransaction();
+    }
+
+    /**
+     *
+     * Commits the existing transaction and restores autocommit mode.
+     *
+     * @return bool True on success, false on failure.
+     *
+     * @see http://php.net/manual/en/pdo.commit.php
+     *
+     */
+    public function commit()
+    {
+        $this->connect();
+        return $this->pdo->commit();
+    }
+
+    /**
+     *
+     * Rolls back the current transaction, and restores autocommit mode.
+     *
+     * @return bool True on success, false on failure.
+     *
+     * @see http://php.net/manual/en/pdo.rollback.php
+     *
+     */
+    public function rollBack()
+    {
+        $this->connect();
+        return $this->pdo->rollBack();
+    }
+
+    /**
      * @param string $sql
      * @param array $driverOptions
      * @return \PDOStatement
