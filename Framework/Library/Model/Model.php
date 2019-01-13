@@ -34,10 +34,8 @@ abstract class Model
 
     public function __construct()
     {
-print_r(static::getConnection());exit(0);
         $this->masterDb = static::getConnection()->getWrite();
         $this->slaveDb = static::getConnection()->getRead();
-        exit(0);
     }
 
     /**

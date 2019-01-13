@@ -78,7 +78,6 @@ class Connection
         if (!isset($this->registry[$type])) {
             throw new \Exception('数据库连接不存在');
         }
-        var_dump($this->registry[$type]);
 
         if ('write' == $type) {
             $connection = $this->registry[$type];
@@ -86,7 +85,8 @@ class Connection
             if (empty($this->registry[$type])) {
                 $connection = $this->registry['write'];
             } elseif (null == $index) {
-                $connection = array_rand($this->registry[$type]);
+                $index = array_rand($this->registry[$type]);
+                $connection = $this->registry[$type][$index];
             } else {
                 $connection = $this->registry[$type][$index];
             }

@@ -28,16 +28,16 @@ class DB extends \PDO
     public $dsn;
     public $username;
     public $password;
-    public $options;
+    public $options = [];
 
     public $exception_callback;
 
-    public $attributes = [
-        self::ATTR_ERRMODE => self::ERRMODE_EXCEPTION,
-    ];
-
     public function __construct($config = [])
     {
+        $this->setOptions([
+            self::ATTR_STATEMENT_CLASS => [Statement::class, [$this]],
+            self::ATTR_ERRMODE => self::ERRMODE_EXCEPTION,
+        ]);
         $this->init($config);
     }
 
@@ -49,35 +49,29 @@ class DB extends \PDO
         }
 
         $retries = 0;
-
         CONNECTION_RETRY: {
-        try {
-            $this->pdo = new \PDO(
-                $this->dsn,
-                $this->username,
-                $this->password,
-                $this->options
-            );
-        } catch (\Exception $e) {
+            try {
+                $this->pdo = new \PDO(
+                    $this->dsn,
+                    $this->username,
+                    $this->password,
+                    $this->options
+                );
+            } catch (\Exception $e) {
 
-            if ($retries == $this->retryLimit) {
-                if (null !== $this->exception_callback && is_callable($this->exception_callback)) {
-                    call_user_func_array($this->exception_callback, [$e]);
-                } else {
-                    throw $e;
+                if ($retries == $this->retryLimit) {
+                    if (null !== $this->exception_callback && is_callable($this->exception_callback)) {
+                        call_user_func_array($this->exception_callback, [$e]);
+                    } else {
+                        throw $e;
+                    }
                 }
+
+                usleep($this->retryWait * 1000);
+
+                ++$retries;
+                goto CONNECTION_RETRY;
             }
-
-            usleep($this->retryWait * 1000);
-
-            ++$retries;
-            goto CONNECTION_RETRY;
-        }
-    }
-
-
-        foreach ($this->attributes as $attribute => $value) {
-            $this->pdo->setAttribute($attribute, $value);
         }
     }
 
@@ -186,18 +180,6 @@ class DB extends \PDO
         return $stmt->fetchColumn();
     }
 
-
-    /**
-     * Shortcut for createQuery()->select
-     *
-     * @param string $statement
-     * @return Query
-     */
-    public function select($statement = "")
-    {
-        return $this->createQuery()->select($statement);
-    }
-
     /**
      * Get all columns from table
      *
@@ -212,15 +194,6 @@ class DB extends \PDO
 
         return $this->execQueryString($sql)
             ->fetchAll(self::FETCH_COLUMN);
-    }
-
-    /**
-     * Get Database Query Builder
-     * @return Query
-     */
-    function createQuery()
-    {
-        return new Query($this);
     }
 
     /**
@@ -279,7 +252,7 @@ class DB extends \PDO
      * @param array $driverOptions
      * @return \PDOStatement
      */
-    public function prepare($sql, array $driverOptions = [])
+    public function prepare($sql, $driverOptions = [])
     {
         $this->connect();
 
@@ -302,7 +275,7 @@ class DB extends \PDO
             $sql .= ' /* ' . $sqlSource . ' */';
         }
 
-        return $this->pdo->prepare($sql);
+        return $this->pdo->prepare($sql, $driverOptions);
     }
 
     /**
@@ -368,16 +341,12 @@ class DB extends \PDO
      */
     public function setOptions(array $options)
     {
-        $this->options = $options + [
-                self::ATTR_STATEMENT_CLASS => array(Statement::class, [$this]),
-                self::ATTR_ERRMODE => self::ERRMODE_EXCEPTION,
-            ];
+        $this->options = $options + $this->options;
     }
 
     protected function getExcludeInitProperty()
     {
         return ['pdo'];
     }
-
 
 }

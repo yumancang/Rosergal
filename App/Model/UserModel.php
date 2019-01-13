@@ -10,6 +10,8 @@
 
 namespace App\Model;
 
+use Twinkle\Database\DB;
+use Twinkle\Database\Query;
 use Twinkle\Library\Model\Model;
 
 class UserModel extends Model
@@ -22,7 +24,11 @@ class UserModel extends Model
 
     public function getUserInfo()
     {
-
-        return ['yumangc'];
+        return $this->slaveDb->execQuery(
+            (new Query())->select('user_id,email')
+                ->from(static::tableName())
+                ->where('user_id = ?',1992)
+                ->limit(1)
+        )->fetchInto();
     }
 }
