@@ -188,7 +188,7 @@ class Container implements ArrayAccess, Serializable
      * @return object
      * @throws Exception
      */
-    public function reflector($concrete, Array $parameters = [])
+    public function reflector($concrete, array $parameters = [])
     {
         if (is_string($concrete)) {
             $reflector = new ReflectionClass($concrete);

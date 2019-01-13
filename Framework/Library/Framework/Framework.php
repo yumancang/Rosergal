@@ -11,10 +11,9 @@ namespace Twinkle\Library\Framework;
 class Framework
 {
     /**
-     *
      * 全局容器
-     *
-     * */
+     * @var Container
+     */
     protected $container;
 
 
@@ -63,12 +62,8 @@ class Framework
     }
 
     /**
-     *
      * 前台AJAX入口
-     * @param object $RContainer
-     * @return void
-     *
-     * */
+     */
     private function funBoot()
     {
         (new Pipeline())

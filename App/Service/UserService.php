@@ -10,7 +10,7 @@ class UserService extends Service
     public function __construct()
     {
         $this->userModel = new UserModel();
-        
+
     }
     
     

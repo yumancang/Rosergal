@@ -7,15 +7,12 @@ namespace Twinkle\Library\Service;
  * @author yumancang
  *
  * */
-class Service 
-{   
+class Service
+{
     public function __construct()
     {
-        
+
     }
-    
-    public function getUserInfo()
-    {
-        
-    }
+
+
 }
