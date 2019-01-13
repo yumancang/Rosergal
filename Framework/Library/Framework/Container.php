@@ -12,8 +12,11 @@ use Exception;
 use ArrayAccess;
 use Serializable;
 use ReflectionClass;
+use Twinkle\Database\Connection;
 use Twinkle\Library\Common\Request;
 use Twinkle\Library\Common\Response;
+use Twinkle\Library\Service\MasterDbServiceProvider;
+use Twinkle\Library\Service\SlaveDbServiceProvider;
 
 
 class Container implements ArrayAccess, Serializable
@@ -63,8 +66,11 @@ class Container implements ArrayAccess, Serializable
      * */
     public function initializationService()
     {
-        $this->injection('masterDbService', (new \Twinkle\Library\Service\MasterDbServiceProvider())->handler());
-        $this->injection('slaveDbService', (new \Twinkle\Library\Service\SlaveDbServiceProvider())->handler());
+        $this->injection('dbService', function () {
+            return new Connection((new MasterDbServiceProvider())->handler(), [
+                (new SlaveDbServiceProvider())->handler(),
+            ]);
+        });
     }
 
 

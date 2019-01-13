@@ -7,27 +7,22 @@
  * @author Python Luo <laifaluo@126.com>
  *
  * */
- 
-namespace App\Model;
- 
-use Twinkle\Library\Database\Mysql as Mysql;
 
-class UserModel extends Mysql 
+namespace App\Model;
+
+use Twinkle\Library\Model\Model;
+
+class UserModel extends Model
 {
-    
-    public $tableName = 'eload_users';
-    
-    public function __construct()
+
+    public static function tableName()
     {
-       
-       parent::__construct();
+        return 'eload_users';
     }
 
-    
     public function getUserInfo()
     {
-        
+
         return ['yumangc'];
     }
-
 }

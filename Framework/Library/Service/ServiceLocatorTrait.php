@@ -63,7 +63,7 @@ trait ServiceLocatorTrait
             'Model',
         ];
 
-        return (new StringHelper())->endWith($name, $suffixList) && !in_array($name, $suffixList);
+        return StringHelper::endWith($name, $suffixList) && !in_array($name, $suffixList);
 
     }
 
