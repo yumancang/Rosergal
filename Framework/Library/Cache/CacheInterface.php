@@ -13,4 +13,6 @@ interface CacheInterface
     public function get($key);
     
     public function delete($key);
+    
+    public function getKey($key);
 }

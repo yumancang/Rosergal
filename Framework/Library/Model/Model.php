@@ -10,7 +10,7 @@ namespace Twinkle\Library\Model;
 
 
 use Twinkle\Database\Connection;
-use Twinkle\Library\Common\StringHelper;
+use Twinkle\Library\Common\Helper;
 use Twinkle\Library\Framework\Container;
 
 /**
@@ -26,7 +26,7 @@ abstract class Model
 
     public static function tableName()
     {
-        return StringHelper::revertUcWords(
+        return Helper::revertUcWords(
             substr(strrchr(get_called_class(), '\\'), 1),
             '_'
         );

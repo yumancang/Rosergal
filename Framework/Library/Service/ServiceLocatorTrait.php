@@ -9,7 +9,7 @@
 namespace Twinkle\Library\Service;
 
 
-use Twinkle\Library\Common\StringHelper;
+use Twinkle\Library\Common\Helper;
 use Twinkle\Library\Framework\Container;
 
 trait ServiceLocatorTrait
@@ -63,7 +63,7 @@ trait ServiceLocatorTrait
             'Model',
         ];
 
-        return StringHelper::endWith($name, $suffixList) && !in_array($name, $suffixList);
+        return Helper::endWith($name, $suffixList) && !in_array($name, $suffixList);
 
     }
 
