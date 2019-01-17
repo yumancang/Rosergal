@@ -9,5 +9,8 @@ namespace Twinkle\Library\Cache\Driver;
 use Twinkle\Library\Cache\CacheAbstract;
 class Memcache extends CacheAbstract
 {
-   
+    public function __construct()
+    {
+        
+    }
 }

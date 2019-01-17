@@ -27,6 +27,7 @@ trait ServiceLocatorTrait
      */
     public function __get($name)
     {
+        
         if ($this->isSupportedClassSuffix($name)) {
             return $this->getByCalledClass($name);
         }
@@ -61,6 +62,7 @@ trait ServiceLocatorTrait
         $suffixList = [
             'Service',
             'Model',
+            'Facade'
         ];
 
         return Helper::endWith($name, $suffixList) && !in_array($name, $suffixList);

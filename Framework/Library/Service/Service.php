@@ -17,7 +17,8 @@ class Service
     public static function supportAutoNamespaces() 
 	{
         return [
-            'App\\Model'
+            'App\\Model',
+            'Twinkle\\Library\\Cache'
         ];
     }
     

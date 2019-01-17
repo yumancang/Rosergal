@@ -13,5 +13,7 @@ abstract class CacheAbstract implements CacheInterface
     public function get($key){}
     
     public function delete($key){}
+    
+    public function getKey($key){}
 
 }
