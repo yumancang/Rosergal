@@ -35,9 +35,9 @@ class Credis extends CacheAbstract
             throw new \Exception('php-redis 拓展未加载', '1001');
         }
         
-        $config = $config['config'];
         
-        switch ($config) {
+        
+        switch ($config['mode']) {
             case 'credis':
                 goto CREDIS;
             case 'redis_replication':
@@ -47,7 +47,7 @@ class Credis extends CacheAbstract
             case 'redis_cluser':
                 goto CREDIS_CLUSER;
         }
-        
+        $config = $config['config'];
         CREDIS : {
             $this->phpredis = new \Redis();
             $connection = isset($config['persistent']) && $config['persistent']  ? 'pconnect' : 'connect';            
@@ -75,11 +75,12 @@ class Credis extends CacheAbstract
         }        
     }
 
-    public function set($key, $val, $expire = 3)
+    public function set($key, $val, $expire = 0)
     {
-        //prend($this->getKey($key), $val, $expire);
-        $aaa = $this->phpredis->set($this->getKey($key), $val, $expire);
-        var_dump($aaa);exit();
+        $this->phpredis->set($this->getKey($key), $val);
+        if ($expire > 0) {
+           $this->phpredis->expire($this->getKey($key), $expire);
+        } 
     }
     
     public function get($key)
@@ -87,9 +88,21 @@ class Credis extends CacheAbstract
         return $this->phpredis->get($this->getKey($key));
     }
     
+    public function hset($key, $field, $value)
+    {
+        return $this->phpredis->hset($this->getKey($key), $field, $value);
+    }
+    
+    
+    public function hget($key, $field)
+    {
+        return $this->phpredis->hget($this->getKey($key), $field);
+    }
+    
+    
     public function delete($key)
     {
-        return $this->phpredis->delete($this->get($key));
+        return $this->phpredis->del($this->getKey($key));
     }
     
     public function getKey($key)

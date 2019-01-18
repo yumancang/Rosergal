@@ -11,7 +11,7 @@ return [
     #memcache,memcache-cluser
     
     #当前用的驱动
-    'driver' => 'credis',    
+    'driver' => 'predis',    
     
     /***********php-redis**************/
     #单主机
@@ -29,8 +29,26 @@ return [
     ],
     
     /*********predis**********/
-    #单主机
+    #哨兵
     'predis' => [
+        'mode' => 'predis_sentinels', #模式
+        'config' => [
+            'sentinels' => [
+                '10.60.46.196:6383',
+                '10.60.46.195:6385',
+                '10.60.46.196:6384'
+            ],
+            'options' => [
+                'replication' => 'sentinel', 
+                'service' => 'sentinel-10.60.46.195-6384'
+            ],
+        ],
+    ],
+    
+    
+    /*********predis**********/
+    #单主机
+    /* 'predis' => [
         'mode' => 'redis', #模式
         'sentinels' => [
             'tcp://10.0.0.1?alias=master',
@@ -66,6 +84,6 @@ return [
         'mode' => 'redis-cluster', #模式
         'sentinels' => ['tcp://10.0.0.1', 'tcp://10.0.0.2', 'tcp://10.0.0.3'],
         'options' => ['replication' => 'sentinel', 'service' => 'mymaster'],
-    ]
+    ] */
      
 ];

@@ -8,7 +8,7 @@ use Twinkle\Library\Cache\Command\Command;
  * @author yumancang
  *
  * */
-class SetCommand extends Command
+class HsetCommand extends Command
 {   
     public function __construct($directive, array $params)
     {
@@ -19,6 +19,6 @@ class SetCommand extends Command
     
     public function execute()
     {
-        return $this->driver->{$this->directive}($this->params[0], $this->params[1]);
+        return $this->driver->{$this->directive}($this->params[0], $this->params[1], $this->params[2]);
     }
 }

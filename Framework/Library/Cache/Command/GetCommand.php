@@ -3,13 +3,13 @@ namespace Twinkle\Library\Cache\Command;
 use Twinkle\Library\Cache\Command\Command;
 
 /**
- * set 命令
+ * get 命令
  *
  * @author yumancang
  *
  * */
-class SetCommand extends Command
-{   
+class GetCommand extends Command
+{
     public function __construct($directive, array $params)
     {
         $this->directive = $directive;
@@ -19,6 +19,6 @@ class SetCommand extends Command
     
     public function execute()
     {
-        return $this->driver->{$this->directive}($this->params[0], $this->params[1]);
+        return $this->driver->{$this->directive}($this->params[0]);
     }
 }

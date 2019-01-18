@@ -8,7 +8,7 @@ use Twinkle\Library\Cache\Command\Command;
  * @author yumancang
  *
  * */
-class SetCommand extends Command
+class HgetCommand extends Command
 {   
     public function __construct($directive, array $params)
     {
