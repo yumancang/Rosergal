@@ -12,8 +12,8 @@ class UserService extends Service
         #逻辑处理
         $this->cacheFacade->set('name', 'yumancang', 100);
         $luolaifa = $this->cacheFacade->get('name');
-        $luolaifa = $this->cacheFacade->hset('goods','1','one');
-        $luolaifa = $this->cacheFacade->hget('goods','1');
+        /* $luolaifa = $this->cacheFacade->hset('goods','1','one');
+        $luolaifa = $this->cacheFacade->hget('goods','1'); */
         prend($luolaifa);
         return $data;
     }

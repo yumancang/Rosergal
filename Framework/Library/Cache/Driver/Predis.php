@@ -11,14 +11,10 @@ namespace Twinkle\Library\Cache\Driver;
 use Twinkle\Library\Cache\CacheAbstract;
 class Predis extends CacheAbstract
 {
-    private $predis;
     
     public function __construct(array $config)
     {
-        if (!isset($config['mode'])) {
-            throw new \Exception('配置没有选择模式', '1001');
-        }
-        
+        parent::__construct($config);
         switch ($config['mode']) {
             case 'predis':
                 goto PREDIS;
@@ -36,7 +32,7 @@ class Predis extends CacheAbstract
             return true;
         }
         PREDIS_SENTINELS : {
-            $this->predis = new \Predis\Client($config['config']['sentinels'], $config['config']['options']);
+            $this->cache = new \Predis\Client($config['config']['sentinels'], $config['config']['options']);
             return true;
         }
         PREDIS_CLUSER : {
@@ -46,32 +42,32 @@ class Predis extends CacheAbstract
     
     public function set($key, $val, $expire = 0)
     {
-        $this->predis->set($this->getKey($key), $val);
+        $this->cache->set($this->getKey($key), $val);
         if ($expire > 0) {
-           $this->predis->expire($this->getKey($key), $expire);
+           $this->cache->expire($this->getKey($key), $expire);
         } 
     }
     
     public function get($key)
     {
-        return $this->predis->get($this->getKey($key));
+        return $this->cache->get($this->getKey($key));
     }
     
     public function hset($key, $field, $value)
     {
-        return $this->predis->hset($this->getKey($key), $field, $value);
+        return $this->cache->hset($this->getKey($key), $field, $value);
     }
     
     
     public function hget($key, $field)
     {
-        return $this->predis->hget($this->getKey($key), $field);
+        return $this->cache->hget($this->getKey($key), $field);
     }
     
     
     public function delete($key)
     {
-        return $this->predis->del($this->getKey($key));
+        return $this->cache->del($this->getKey($key));
     }
     
     public function getKey($key)

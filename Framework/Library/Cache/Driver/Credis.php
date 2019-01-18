@@ -22,21 +22,10 @@ $redis->set('key', 'value', Array('xx', 'px'=>1000));
  */
 class Credis extends CacheAbstract
 {
-    private $phpredis;
     
     public function __construct(array $config)
     {
-        
-        if (!isset($config['mode'])) {
-            throw new \Exception('配置没有选择模式', '1001');
-        }
-
-        if ( !extension_loaded('redis') ) {
-            throw new \Exception('php-redis 拓展未加载', '1001');
-        }
-        
-        
-        
+        parent::__construct($config);
         switch ($config['mode']) {
             case 'credis':
                 goto CREDIS;
@@ -49,19 +38,19 @@ class Credis extends CacheAbstract
         }
         $config = $config['config'];
         CREDIS : {
-            $this->phpredis = new \Redis();
+            $this->cache = new \Redis();
             $connection = isset($config['persistent']) && $config['persistent']  ? 'pconnect' : 'connect';            
             $timeout = isset($config['timeout']) ? $config['timeout'] : false;
             
             
-            $timeout ? $this->phpredis->$connection($config['host'], $config['port']) :
-            $sss = $this->phpredis->$connection($config['host'], $config['port'], $timeout, NULL, 100);
+            $timeout ? $this->cache->$connection($config['host'], $config['port']) :
+            $sss = $this->cache->$connection($config['host'], $config['port'], $timeout, NULL, 100);
             
             //是否有密码
             $password = isset($config['password']) ? $config['password'] : '';
-            $password && $this->phpredis->auth($config['password']);
+            $password && $this->cache->auth($config['password']);
             $database = isset($config['db']) ? $config['db'] : 0;
-            $sss = $this->phpredis->select(12);
+            $sss = $this->cache->select(12);
             //var_dump($sss);exit();
         }
         CREDIS_REPLICATION : {
@@ -77,32 +66,32 @@ class Credis extends CacheAbstract
 
     public function set($key, $val, $expire = 0)
     {
-        $this->phpredis->set($this->getKey($key), $val);
+        $this->cache->set($this->getKey($key), $val);
         if ($expire > 0) {
-           $this->phpredis->expire($this->getKey($key), $expire);
+           $this->cache->expire($this->getKey($key), $expire);
         } 
     }
     
     public function get($key)
     {
-        return $this->phpredis->get($this->getKey($key));
+        return $this->cache->get($this->getKey($key));
     }
     
     public function hset($key, $field, $value)
     {
-        return $this->phpredis->hset($this->getKey($key), $field, $value);
+        return $this->cache->hset($this->getKey($key), $field, $value);
     }
     
     
     public function hget($key, $field)
     {
-        return $this->phpredis->hget($this->getKey($key), $field);
+        return $this->cache->hget($this->getKey($key), $field);
     }
     
     
     public function delete($key)
     {
-        return $this->phpredis->del($this->getKey($key));
+        return $this->cache->del($this->getKey($key));
     }
     
     public function getKey($key)

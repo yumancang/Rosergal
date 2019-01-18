@@ -19,6 +19,6 @@ class SetCommand extends Command
     
     public function execute()
     {
-        return $this->driver->{$this->directive}($this->params[0], $this->params[1]);
+        return $this->driver->{$this->directive}($this->params[0], $this->params[1], $this->params[2]);
     }
 }

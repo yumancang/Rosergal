@@ -7,11 +7,11 @@
  */
 return [
     #redis,redis-replication,redis-sentinels,redis-cluser,
-    #predis,predis-replication,predis-sentinels,predis-cluser
-    #memcache,memcache-cluser
+    #predis,predis_replication,predis-sentinels,predis-cluser
+    #memcache,memcache_cluser
     
     #当前用的驱动
-    'driver' => 'predis',    
+    'driver' => 'memcache',    
     
     /***********php-redis**************/
     #单主机
@@ -45,6 +45,33 @@ return [
         ],
     ],
     
+    /*********memcache**********/
+    #memcache,memcache_cluser
+    'memcache' => [
+        'mode' => 'memcache', #模式
+        'config' => [
+            'servers' => [
+                ['host' => '127.0.0.1','port' => '11211', 'persistent' => true],
+            ],
+            'options' => [
+                'compress' => true  #是否压缩
+            ],
+        ],
+    ],
+    
+    
+    /* 'memcache' => [
+        'mode' => 'memcache_cluser', #模式
+        'config' => [
+            'servers' => [
+                '10.60.46.196:6383'
+            ],
+            'options' => [
+                'replication' => 'sentinel',
+                'service' => 'sentinel-10.60.46.195-6384'
+            ],
+        ],
+    ], */
     
     /*********predis**********/
     #单主机
