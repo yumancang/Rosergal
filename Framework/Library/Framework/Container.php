@@ -17,6 +17,7 @@ use Twinkle\Library\Common\Request;
 use Twinkle\Library\Common\Response;
 use Twinkle\Library\Service\MasterDbServiceProvider;
 use Twinkle\Library\Service\SlaveDbServiceProvider;
+use Twinkle\Library\Config\ConfigLoader;
 
 
 class Container implements ArrayAccess, Serializable
@@ -98,6 +99,17 @@ class Container implements ArrayAccess, Serializable
 
         Hook::getInstance()->registerPlugin('router', new \Twinkle\Library\Plugin\RouterPlugin());
         Hook::getInstance()->registerPlugin('log', new \Twinkle\Library\Plugin\LogPlugin());
+    }
+    
+    
+    /**
+     * 注入系统配置
+     * 
+     */
+    public function loadSystemConfig()
+    {
+        #加载系统级配置
+        ConfigLoader::LoadConfig(FRAMEWORK_PATH . '/Config', 'cache.php');
     }
 
 
@@ -233,7 +245,7 @@ class Container implements ArrayAccess, Serializable
     
     public function reflectorDebug($concrete, array $parameters = [])
     {
-     
+        
         if (is_string($concrete)) {
             $reflector = new ReflectionClass($concrete);
             
@@ -250,6 +262,7 @@ class Container implements ArrayAccess, Serializable
             //有传参数构造的话就用用户的实参
             if (!empty($parameters)) {
                 $object = $reflector->newInstanceArgs($parameters);
+                
                 return $object;
             }
             //没有传入就用默认参数

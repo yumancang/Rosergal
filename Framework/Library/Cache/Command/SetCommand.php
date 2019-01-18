@@ -14,18 +14,16 @@ class SetCommand extends Command
     
     public $params;
     
-    public function __construct(string $directive, array $params)
+    public function __construct($directive, array $params)
     {
         $this->directive = $directive;
         $this->params = $params;
-        
         parent::__construct();
-        
     }
     
     public function execute()
     {
-        #$reds->set(1,2);
-        $this->driver->{$this->directive}($this->params[0], $this->params[1]);
+        
+        return $this->driver->{$this->directive}($this->params[0], $this->params[1]);
     }
 }

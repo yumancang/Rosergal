@@ -35,12 +35,7 @@ class Dispatch
     {
         $router = Router::getInstance();
         $controllerName = 'App\Controller\\'.ucfirst($router->module).'Controller';
-        
-        try {
-            call_user_func([new  $controllerName(), $router->action], $router->request);
-        } catch (\Exception $e) {
-        }
-       
+        call_user_func([new  $controllerName(), $router->action], $router->request);
     }
     
     /* public function handler()

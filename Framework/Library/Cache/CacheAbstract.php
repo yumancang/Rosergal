@@ -8,7 +8,7 @@ namespace Twinkle\Library\Cache;
  * */
 abstract class CacheAbstract implements CacheInterface
 {
-    public function set($key, $val){}
+    public function set($key, $val, $expire = 0){}
     
     public function get($key){}
     

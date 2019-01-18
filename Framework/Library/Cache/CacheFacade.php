@@ -10,13 +10,13 @@ use Twinkle\Library\Framework\Container;
  * */
 class CacheFacade
 {
-    
     public function __construct()
     {
         
     }
+
     
-    public function executeCommand(String $command, array $arguments)
+    public function executeCommand($command, array $arguments)
     {
         $commandPath = 'Twinkle\Library\Cache\Command\\'.ucfirst($command).'Command';
         $command = Container::getInstance()->reflectorDebug($commandPath, [strtolower($command),$arguments]);
@@ -24,7 +24,7 @@ class CacheFacade
         
     }
     
-    public function __call(String $command, array $arguments)
+    public function __call($command, array $arguments)
     {
         return $this->executeCommand($command, $arguments);
     }

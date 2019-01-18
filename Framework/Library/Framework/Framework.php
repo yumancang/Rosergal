@@ -42,22 +42,27 @@ class Framework
         /* set_error_handler(function(){
             
         });
-        set_exception_handler(function(){
-            
-        });
+        
         register_shutdown_function(function(){
             
         });
         spl_autoload_register(function(){
             
         }); */
+        //
+        set_exception_handler(["Twinkle\Handler\ExceptionHandler", "handleException"]);
 
         #注入系统组件
         $RContainer->initializationComponent();
 
         #注入系统插件
         $RContainer->initializationPlugin();
-
+        
+        #加载系统配置
+        $RContainer->loadSystemConfig();
+        
+        
+        
         $this->init();
     }
 
@@ -66,6 +71,7 @@ class Framework
      */
     private function funBoot()
     {
+        
         (new Pipeline())
             ->pipe(Hook::getInstance()->beforeRouter())
             ->pipe(Router::getInstance())

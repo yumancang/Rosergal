@@ -6,6 +6,29 @@
  * @author  yumancang
  */
 return [
+    #redis,redis-replication,redis-sentinels,redis-cluser,
+    #predis,predis-replication,predis-sentinels,predis-cluser
+    #memcache,memcache-cluser
+    
+    #当前用的驱动
+    'driver' => 'credis',    
+    
+    /***********php-redis**************/
+    #单主机
+    'credis' => [
+        'mode' => 'credis',
+        'config' => [
+            'host' => '10.32.21.112',
+            'port' => '6379',
+            'persistent' => false,
+            'username'  => false,
+            'password'  => false,
+            'database'  => 15,
+            'timeout'   => false,
+        ],
+    ],
+    
+    /*********predis**********/
     #单主机
     'predis' => [
         'mode' => 'redis', #模式

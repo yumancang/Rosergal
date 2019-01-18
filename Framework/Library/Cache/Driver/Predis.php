@@ -9,20 +9,30 @@ namespace Twinkle\Library\Cache\Driver;
 use Twinkle\Library\Cache\CacheAbstract;
 class Predis extends CacheAbstract
 {
-    public $predis;
+    private $predis;
     
-    public function __construct()
+    public function __construct(array $config)
     {
-        
+    
     }
     
-    public function connect()
+    public function set($key, $val, $expire = 0)
     {
-        
+    
     }
     
-    public function set($key, $val)
+    public function get($key)
     {
-        prend($key, $val);
+    
+    }
+    
+    public function delete($key)
+    {
+    
+    }
+    
+    public function getKey($key)
+    {
+    
     }
 }
