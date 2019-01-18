@@ -9,7 +9,7 @@
 namespace Twinkle\Library\Service;
 
 
-use Twinkle\Library\Common\StringHelper;
+use Twinkle\Library\Common\Helper;
 use Twinkle\Library\Framework\Container;
 
 trait ServiceLocatorTrait
@@ -27,6 +27,7 @@ trait ServiceLocatorTrait
      */
     public function __get($name)
     {
+        
         if ($this->isSupportedClassSuffix($name)) {
             return $this->getByCalledClass($name);
         }
@@ -61,9 +62,10 @@ trait ServiceLocatorTrait
         $suffixList = [
             'Service',
             'Model',
+            'Facade'
         ];
 
-        return StringHelper::endWith($name, $suffixList) && !in_array($name, $suffixList);
+        return Helper::endWith($name, $suffixList) && !in_array($name, $suffixList);
 
     }
 

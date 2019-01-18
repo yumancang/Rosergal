@@ -15,7 +15,7 @@ function prend()
     $data = func_get_args();
     foreach ($data as $key => $val) {
         echo '<pre>';
-        print_r($val);
+        var_dump($val);
         echo '</pre>';
     }
     exit();

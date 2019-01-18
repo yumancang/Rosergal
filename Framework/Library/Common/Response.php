@@ -67,7 +67,7 @@ class Response
     public function sendJson($statusCode = '', $content = '')
     {
         header("Content-type: text/json; charset=utf-8");
-        echo json_encode(['code' => $statusCode ? $statusCode : $this->statusCode, 'content' => $content ? $content : $this->content]);
+        echo json_encode(['code' => $statusCode ? $statusCode : $this->statusCode, 'content' => $content ? $content : $this->content], JSON_UNESCAPED_UNICODE);
         exit();
     }
     

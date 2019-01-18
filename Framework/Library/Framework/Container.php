@@ -229,6 +229,44 @@ class Container implements ArrayAccess, Serializable
             return $object;
         }
     }
+    
+    
+    public function reflectorDebug($concrete, array $parameters = [])
+    {
+     
+        if (is_string($concrete)) {
+            $reflector = new ReflectionClass($concrete);
+            
+            if (!$reflector->isInstantiable()) {
+                throw new \Exception($concrete . ':该类不可实例化', 10000);
+            }
+            
+            $constructor = $reflector->getConstructor();
+            
+            if (is_null($constructor)) {
+                throw new \Exception($concrete . ':构造函数出现错误', 10000);
+            }
+            
+            //有传参数构造的话就用用户的实参
+            if (!empty($parameters)) {
+                $object = $reflector->newInstanceArgs($parameters);
+                return $object;
+            }
+            //没有传入就用默认参数
+            $dependencies = $constructor->getParameters();
+            
+            $parameters = [];
+            
+            $parameters = $this->getParametersByDependencies($dependencies);
+            
+            if (empty($parameters)) {
+                $object = $reflector->newInstance();
+            } else {
+                $object = $reflector->newInstanceArgs($parameters);
+            }
+            return $object;
+        }
+    }
 
 
     /**
