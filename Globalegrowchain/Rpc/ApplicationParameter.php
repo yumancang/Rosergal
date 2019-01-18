@@ -29,7 +29,7 @@ class ApplicationParameter
     public function initByRequest(Request $request, array $apiConfig)
     {
         if (!preg_match(self::$methodRegex, $request->getMethod())) {
-            throw new RpcException('params method error right for example : (test.test)', 1000, '');
+            throw new RpcException('params method error right for example : (test.test)', 10000, '');
         }
 
         $parameterArray = explode('.', $request->getMethod());

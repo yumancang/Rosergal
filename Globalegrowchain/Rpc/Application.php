@@ -8,6 +8,12 @@
 
 namespace Globalegrowchain\Rpc;
 
+use Globalegrowchain\Rpc\Api\ApiProviderInterface;
+use Globalegrowchain\Rpc\Exception\RpcException;
+use Zend\Json\Server\Server;
+use Zend\Mvc\Service\ServiceManagerConfig;
+use Zend\ServiceManager\ServiceManager;
+
 /**
  * Description of Application
  *
@@ -25,7 +31,7 @@ class Application
     {
         // Create service manager
         $serviceManagerConfig = isset($applicationConfig['service_manager']) ? $applicationConfig['service_manager'] : array();
-        $this->serviceManager = new \Zend\ServiceManager\ServiceManager(new \Zend\Mvc\Service\ServiceManagerConfig($serviceManagerConfig));
+        $this->serviceManager = new ServiceManager(new ServiceManagerConfig($serviceManagerConfig));
         $this->serviceManager->setService('applicationConfig', $applicationConfig);
         // Load modules
         $this->loadModules();
@@ -51,7 +57,7 @@ class Application
     {
         if (is_null($this->server)) {
             // Create JsonRpc server
-            $this->server = new \Zend\Json\Server\Server();
+            $this->server = new Server();
         }
         return $this->server;
     }
@@ -65,8 +71,36 @@ class Application
         try {
             $applicationParameter->initByRequest($this->server->getRequest(), $this->apiConfig);
         } catch (\Exception $e) {
-            throw new Exception\RpcException($e->getMessage(),10001,'');
+            throw new RpcException($e->getMessage(), 10001, '');
         }
+
+        if (empty($applicationParameter->getType()) || !class_exists($applicationParameter->getClass()) || in_array($applicationParameter->getMethod(), $applicationParameter->getDisabledMethods())) {
+            throw new RpcException('API parameter access error for RPC service', 10002, '');
+        }
+
+        $apiName = $applicationParameter->getClass();
+        $apiClass = new $apiName($this->serviceManager);
+
+        if (!($apiClass instanceof ApiProviderInterface)) {
+            throw new RpcException('The API of the RPC service must implement the ApiProviderInterface interface', 10003, '');
+        }
+
+        if (!method_exists($apiClass, $applicationParameter->getMethod())) {
+            throw new RpcException('API method for RPC service does not exist', 10004, '');
+        }
+
+        $reflection = new \ReflectionMethod($apiClass, $applicationParameter->getMethod());
+        $numberOfRequiredParameters = $reflection->getNumberOfRequiredParameters();   //Access method must have a number of parameters
+        $requestParamsNargs = $this->server->getRequest()->getParams() ? count($this->server->getRequest()->getParams()) : 0;  //Number of request method parameters
+        if ($numberOfRequiredParameters > $requestParamsNargs) {
+            throw new RpcException(sprintf('%s params must is %d but you is %d', $this->server->getRequest()->getMethod(), $numberOfRequiredParameters, $requestParamsNargs), 10005, '');
+        }
+
+        $this->server->getRequest()->setMethod($applicationParameter->getMethod());
+        $this->server->setClass($apiClass);
+
+        //Handling POST requests
+        $this->server->handle();
     }
 
 }
