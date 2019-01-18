@@ -71,29 +71,29 @@ class Application
         try {
             $applicationParameter->initByRequest($this->server->getRequest(), $this->apiConfig);
         } catch (\Exception $e) {
-            throw new RpcException($e->getMessage(), 10001, '');
+            throw new RpcException($e->getMessage());
         }
 
         if (empty($applicationParameter->getType()) || !class_exists($applicationParameter->getClass()) || in_array($applicationParameter->getMethod(), $applicationParameter->getDisabledMethods())) {
-            throw new RpcException('API parameter access error for RPC service', 10002, '');
+            throw new RpcException('API parameter access error for RPC service');
         }
 
         $apiName = $applicationParameter->getClass();
         $apiClass = new $apiName($this->serviceManager);
 
         if (!($apiClass instanceof ApiProviderInterface)) {
-            throw new RpcException('The API of the RPC service must implement the ApiProviderInterface interface', 10003, '');
+            throw new RpcException('The API of the RPC service must implement the ApiProviderInterface interface');
         }
 
         if (!method_exists($apiClass, $applicationParameter->getMethod())) {
-            throw new RpcException('API method for RPC service does not exist', 10004, '');
+            throw new RpcException('API method for RPC service does not exist');
         }
 
         $reflection = new \ReflectionMethod($apiClass, $applicationParameter->getMethod());
         $numberOfRequiredParameters = $reflection->getNumberOfRequiredParameters();   //Access method must have a number of parameters
         $requestParamsNargs = $this->server->getRequest()->getParams() ? count($this->server->getRequest()->getParams()) : 0;  //Number of request method parameters
         if ($numberOfRequiredParameters > $requestParamsNargs) {
-            throw new RpcException(sprintf('%s params must is %d but you is %d', $this->server->getRequest()->getMethod(), $numberOfRequiredParameters, $requestParamsNargs), 10005, '');
+            throw new RpcException(sprintf('%s params must is %d but you is %d', $this->server->getRequest()->getMethod(), $numberOfRequiredParameters, $requestParamsNargs));
         }
 
         $this->server->getRequest()->setMethod($applicationParameter->getMethod());
