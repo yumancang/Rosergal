@@ -20,7 +20,7 @@ use Twinkle\Library\Service\SlaveDbServiceProvider;
 use Twinkle\Library\Config\ConfigLoader;
 
 
-class Container implements ArrayAccess, Serializable
+class Container extends \Twinkle\DI\Container
 {
     /**
      *
@@ -38,16 +38,6 @@ class Container implements ArrayAccess, Serializable
             self::$_instance = new self();
         }
         return self::$_instance;
-    }
-
-
-    /**
-     *
-     * 构造函数
-     * */
-    private function __construct()
-    {
-
     }
 
     /**
@@ -342,50 +332,5 @@ class Container implements ArrayAccess, Serializable
         pre($this->classMapperAlias);
         pre($this->mapperInstances);
         return 'f';
-    }
-
-
-    public function offsetExists($offset)
-    {
-
-    }
-
-    /**
-     * @param mixed $offset
-     * @return object
-     */
-    public function offsetGet($offset)
-    {
-        return $this->make($offset);
-    }
-
-    /**
-     * @param mixed $offset
-     * @param mixed $value
-     */
-    public function offsetSet($offset, $value)
-    {
-        $this->mapperInstances[$offset] = $value;
-    }
-
-    /**
-     * @param mixed $offset
-     */
-    public function offsetUnset($offset)
-    {
-        unset($this->mapperInstances[$offset]);
-    }
-
-    public function serialize()
-    {
-
-    }
-
-    /**
-     * @param string $serialized
-     */
-    function unserialize($serialized)
-    {
-
     }
 }
