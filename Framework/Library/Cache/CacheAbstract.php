@@ -31,5 +31,4 @@ abstract class CacheAbstract implements CacheInterface
             throw new \Exception('配置没有选择数据', '1001');
         }
     }
-
 }

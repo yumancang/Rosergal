@@ -38,19 +38,11 @@ class Framework
 
         $RContainer['fileLogger']->info('Framework:__construct');
 
-        #自定义错误异常处理
-        /* set_error_handler(function(){
-            
-        });
-        
-        register_shutdown_function(function(){
-            
-        });
-        spl_autoload_register(function(){
-            
-        }); */
-        //
-        set_exception_handler(["Twinkle\Handler\ExceptionHandler", "handleException"]);
+        //#自动加载用composer即可
+        //暂时先隐藏
+        //set_error_handler([new \Twinkle\Handler\ErrorHandler(), "handler"]);
+        //set_exception_handler([new \Twinkle\Handler\ExceptionHandler(), "handler"]);
+        //register_shutdown_function([new \Twinkle\Handler\ShutdownHandler(), "handler"]);
 
         #注入系统组件
         $RContainer->initializationComponent();

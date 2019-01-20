@@ -19,12 +19,14 @@ class CacheFacade
     public function executeCommand($command, array $arguments)
     {
         $commandPath = 'Twinkle\Library\Cache\Command\\'.ucfirst($command).'Command';
+        
         $command = Container::getInstance()->reflectorDebug($commandPath, [strtolower($command),$arguments]);
+        
         return $command->execute();
         
     }
     
-    public function __call($command, array $arguments)
+    public function __call($command, array $arguments = [])
     {
         return $this->executeCommand($command, $arguments);
     }

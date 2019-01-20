@@ -40,6 +40,8 @@ class Memcache extends CacheAbstract
         }
     }
     
+    
+    
     public function set($key, $val, $expire = 0)
     {
         return $this->cache->set($this->getKey($key), $val, $this->compress, $expire);
@@ -59,5 +61,6 @@ class Memcache extends CacheAbstract
     {
         return $key;
     }
+
 
 }

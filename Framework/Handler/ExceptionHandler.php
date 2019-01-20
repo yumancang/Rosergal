@@ -2,17 +2,27 @@
 namespace Twinkle\Handler;
 
 use Exception;
-
-class ExceptionHandler 
+use Twinkle\Library\Common\Response;
+/**
+ * 异常处理
+ *
+ * @author yumancang
+ *
+ * */
+class ExceptionHandler extends CommonHandler
 {
-    public static function printException(Exception $e)
+    public function printException(Exception $e)
     {
-        print 'Uncaught '.get_class($e).', code: ' . $e->getCode() . "<br />Message: " . htmlentities($e->__toString())."\n";
+        $this->info = [
+            'message' => 'Uncaught '.get_class($e).', code: ' . $e->getCode() . "<br />Message: " . htmlentities($e->__toString())."\n"
+        ];
+        $this->end();
     }
      
-    public static function handleException(Exception $e)
+    public function handler(Exception $e)
     {
         
         self::printException($e);
     }
+
 }

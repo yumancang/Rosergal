@@ -77,6 +77,13 @@ class Response
         echo $content ? $content : $this->content;
         exit();
     }
+    
+    public function sendError($content = '')
+    {
+        echo $content;
+        exit();
+    }
+    
 
 }
 
