@@ -6,30 +6,77 @@
  * @author  yumancang
  */
 return [
-    #redis,redis-replication,redis-sentinels,redis-cluser,
+    #credis,credis_replication,redis-sentinels,redis-cluser,
     #predis,predis_replication,predis-sentinels,predis-cluser
     #memcache,memcache_cluser
     
     #当前用的驱动
-    'driver' => 'memcache',    
+    'driver' => 'credis',    
     
     /***********php-redis**************/
     #单主机
-    'credis' => [
+    /* 'credis' => [
         'mode' => 'credis',
         'config' => [
-            'host' => '10.32.21.112',
+            'host' => '192.168.0.103',
             'port' => '6379',
-            'persistent' => false,
+            'persistent' => true,
             'username'  => false,
             'password'  => false,
             'database'  => 15,
             'timeout'   => false,
         ],
+    ], */
+    
+    #redis 一主多从
+    'credis' => [
+        'mode' => 'credis_replication',
+        'config' => [
+            'master' => [
+                [
+                'host' => '192.168.0.103',
+                'port' => '6379',
+                'persistent' => true,
+                'username'  => false,
+                'password'  => false,
+                'database'  => 15,
+                'timeout'   => false,
+                ]
+            ],
+            'slave' => [
+                [
+                    'host' => '192.168.0.103',
+                    'port' => '6379',
+                    'persistent' => true,
+                    'username'  => false,
+                    'password'  => false,
+                    'database'  => 15,
+                    'timeout'   => false
+                ],
+                [
+                    'host' => '192.168.0.103',
+                    'port' => '6379',
+                    'persistent' => true,
+                    'username'  => false,
+                    'password'  => false,
+                    'database'  => 15,
+                    'timeout'   => false
+                ],
+                [
+                    'host' => '192.168.0.103',
+                    'port' => '6379',
+                    'persistent' => true,
+                    'username'  => false,
+                    'password'  => false,
+                    'database'  => 15,
+                    'timeout'   => false
+                ]
+            ]
+        ],
     ],
     
     /*********predis**********/
-    #哨兵
+    #哨兵 predis 包里面自己实现主从切换
     'predis' => [
         'mode' => 'predis_sentinels', #模式
         'config' => [
