@@ -79,7 +79,7 @@ abstract class AbstractContainer implements ContainerInterface
         return $this->resolvedEntries[$name] = $object;
     }
 
-    public function reflector($concrete, $params = [])
+    public function reflector($concrete, array $params = [])
     {
         if (is_string($concrete)) {
             $reflection = new \ReflectionClass($concrete);
