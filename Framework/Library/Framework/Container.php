@@ -9,15 +9,13 @@
 namespace Twinkle\Library\Framework;
 
 use Exception;
-use ArrayAccess;
-use Serializable;
 use ReflectionClass;
 use Twinkle\Database\Connection;
 use Twinkle\Library\Common\Request;
 use Twinkle\Library\Common\Response;
+use Twinkle\Library\Config\ConfigLoader;
 use Twinkle\Library\Service\MasterDbServiceProvider;
 use Twinkle\Library\Service\SlaveDbServiceProvider;
-use Twinkle\Library\Config\ConfigLoader;
 
 
 class Container extends \Twinkle\DI\Container
@@ -125,7 +123,7 @@ class Container extends \Twinkle\DI\Container
 
 
         if (is_string($name) && is_object($concrete)) {
-            $this->mapperInstances[$name] = $concrete;
+            parent::injection($name,$concrete);
             return true;
         }
 
@@ -166,6 +164,12 @@ class Container extends \Twinkle\DI\Container
             if (strpos($name, '\\') !== false) {
                 throw new \Exception('参数只能是简短名称,不能是全路径名空间', 10000);
             }
+
+            if (isset($this->definitions[$name])) {
+                $concrete = $this->definitions[$name];
+                return parent::reflector($concrete,$parameters);
+            }
+
             //如果之前生成过，就直接返回
             if (isset($this->mapperInstances[$name])) {
                 return $this->mapperInstances[$name];

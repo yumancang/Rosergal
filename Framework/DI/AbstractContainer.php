@@ -79,7 +79,7 @@ abstract class AbstractContainer implements ContainerInterface
         return $this->resolvedEntries[$name] = $object;
     }
 
-    public function reflector($concrete, $params = [])
+    public function reflector($concrete, array $params = [])
     {
         if (is_string($concrete)) {
             $reflection = new \ReflectionClass($concrete);
@@ -88,6 +88,8 @@ abstract class AbstractContainer implements ContainerInterface
                 $dependencies[$index] = $value;
             }
             return $reflection->newInstanceArgs($dependencies);
+        } elseif (is_object($concrete)) {
+            return $concrete;
         }
     }
 

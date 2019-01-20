@@ -11,7 +11,6 @@ namespace Twinkle\DI;
 
 use Twinkle\DI\Exception\NotFoundException;
 use Twinkle\Library\Common\Helper;
-use Twinkle\Library\Framework\Container;
 
 trait ServiceLocatorTrait
 {
