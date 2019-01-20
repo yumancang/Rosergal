@@ -6,9 +6,10 @@
  * Time: 10:08
  */
 
-namespace Twinkle\Library\Service;
+namespace Twinkle\DI;
 
 
+use Twinkle\DI\Exception\NotFoundException;
 use Twinkle\Library\Common\Helper;
 use Twinkle\Library\Framework\Container;
 
@@ -27,15 +28,12 @@ trait ServiceLocatorTrait
      */
     public function __get($name)
     {
-        
+
         if ($this->isSupportedClassSuffix($name)) {
             return $this->getByCalledClass($name);
         }
-        /**
-         * elseif (is_callable(parent::__get)) {
-         * return parent::__get($name);
-         * }
-         */
+
+        return parent::__get($name);
     }
 
     protected function getByCalledClass($propertyName)
@@ -48,7 +46,7 @@ trait ServiceLocatorTrait
             }
         }
 
-        throw new \Exception('属性不存在');
+        throw new NotFoundException("No entry or class found for {$propertyName}");
     }
 
 
@@ -66,7 +64,6 @@ trait ServiceLocatorTrait
         ];
 
         return Helper::endWith($name, $suffixList) && !in_array($name, $suffixList);
-
     }
 
 }
