@@ -14,7 +14,13 @@ before_install:
 install:
   - composer install --prefer-dist --optimize-autoloader --quiet
 
-script:
+script: true
 
-after_success:
-
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_ACCESS_TOKEN
+  target-branch: deploy
+  keep-history: true
+  on:
+    branch: master
