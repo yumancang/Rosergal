@@ -14,7 +14,9 @@ class Framework
      * 全局容器
      * @var Container
      */
-    protected $container;
+    public $container;
+
+    public static $app;
 
 
     final public static function Bootstrap()
@@ -49,13 +51,13 @@ class Framework
 
         #注入系统插件
         $RContainer->initializationPlugin();
-        
+
         #加载系统配置
         $RContainer->loadSystemConfig();
-        
-        
-        
+
         $this->init();
+
+        self::$app = $this;
     }
 
     /**
@@ -63,7 +65,7 @@ class Framework
      */
     private function funBoot()
     {
-        
+
         (new Pipeline())
             ->pipe(Hook::getInstance()->beforeRouter())
             ->pipe(Router::getInstance())

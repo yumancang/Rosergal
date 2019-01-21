@@ -4,7 +4,7 @@
 namespace Twinkle\Library\Controller;
 
 
-use Twinkle\DI\ServiceLocatorTrait;
+use Twinkle\Library\Service\ServiceLocatorTrait;
 
 class Controller
 {
