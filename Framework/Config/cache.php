@@ -15,19 +15,20 @@ return [
     
     /***********php-redis**************/
     #单主机
-    /* 'credis' => [
+     'credis' => [
         'mode' => 'credis',
         'config' => [
-            'host' => '192.168.0.103',
-            'port' => '6379',
+            'host' => 'local.test.redis',
+            'port' => '6380',
             'persistent' => true,
             'username'  => false,
-            'password'  => false,
+            'password'  => 'profileLogStash',
             'database'  => 15,
             'timeout'   => false,
         ],
-    ], */
-    
+    ],
+
+    /*
     #redis 一主多从
     'credis' => [
         'mode' => 'credis_replication',
@@ -74,6 +75,7 @@ return [
             ]
         ],
     ],
+    */
     
     /*********predis**********/
     #哨兵 predis 包里面自己实现主从切换

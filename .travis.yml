@@ -14,7 +14,8 @@ before_install:
 install:
   - composer install --prefer-dist --optimize-autoloader --quiet
 
-script: true
+script:
+  - ./vendor/bin/phpunit --coverage-clover=coverage.clover
 
 deploy:
   provider: pages
