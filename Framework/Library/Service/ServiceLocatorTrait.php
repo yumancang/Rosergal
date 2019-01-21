@@ -6,11 +6,12 @@
  * Time: 10:08
  */
 
-namespace Twinkle\DI;
+namespace Twinkle\Library\Service;
 
 
 use Twinkle\DI\Exception\NotFoundException;
 use Twinkle\Library\Common\Helper;
+use Twinkle\Library\Framework\Framework;
 
 
 trait ServiceLocatorTrait
@@ -42,7 +43,7 @@ trait ServiceLocatorTrait
         $className = ucwords($propertyName);
         foreach (static::supportAutoNamespaces() as $namespace) {
             if (class_exists("{$namespace}\\{$className}")) {
-                return Container::getInstance()->reflector("{$namespace}\\{$className}");
+                return Framework::$app->container->reflector("{$namespace}\\{$className}");
             }
         }
 

@@ -1,7 +1,7 @@
 <?php
 namespace Twinkle\Library\Service;
 
-use Twinkle\DI\ServiceLocatorTrait;
+use Twinkle\Library\Service\ServiceLocatorTrait;
 /**
  * 基础SERVICE层,控制层来调用这层
  * 这层必须调MODEL层---请遵守规则
