@@ -13,6 +13,19 @@ use Twinkle\DI\Exception\NotFoundException;
 
 class Container extends AbstractContainer implements \ArrayAccess
 {
+    
+    private static $_instance = null;
+    
+    
+    public static function getInstance()
+    {
+        if (null === self::$_instance) {
+            self::$_instance = new self();
+        }
+        return self::$_instance;
+    }
+    
+    
 
     public function get($id)
     {

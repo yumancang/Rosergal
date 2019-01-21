@@ -40,9 +40,9 @@ class Framework
 
         //#自动加载用composer即可
         //暂时先隐藏
-        //set_error_handler([new \Twinkle\Handler\ErrorHandler(), "handler"]);
-        //set_exception_handler([new \Twinkle\Handler\ExceptionHandler(), "handler"]);
-        //register_shutdown_function([new \Twinkle\Handler\ShutdownHandler(), "handler"]);
+        set_error_handler([new \Twinkle\Handler\ErrorHandler(), "handler"]);
+        set_exception_handler([new \Twinkle\Handler\ExceptionHandler(), "handler"]);
+        register_shutdown_function([new \Twinkle\Handler\ShutdownHandler(), "handler"]);
 
         #注入系统组件
         $RContainer->initializationComponent();

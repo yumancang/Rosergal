@@ -16,9 +16,12 @@ class UserController extends Controller
     public function index()
     {
        // $res = $this->userService->getUserInfo();
+
         $sdfsdf = new UserService();
+       
         $sdfsdf->getUserInfo();
-        prend(123);
+        $sdfsdf->getUserInfdo();
+        exit('user');
     }
     
     

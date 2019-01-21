@@ -78,10 +78,12 @@ class Response
         exit();
     }
     
-    public function sendError($content = '')
+    public function sendError($content = [])
     {
-        echo $content;
-        exit();
+        echo '<pre>';
+        print_r($content);
+        echo '</pre>';
+		exit();
     }
     
 

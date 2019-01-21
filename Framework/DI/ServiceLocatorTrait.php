@@ -12,6 +12,7 @@ namespace Twinkle\DI;
 use Twinkle\DI\Exception\NotFoundException;
 use Twinkle\Library\Common\Helper;
 
+
 trait ServiceLocatorTrait
 {
 
@@ -29,6 +30,7 @@ trait ServiceLocatorTrait
     {
 
         if ($this->isSupportedClassSuffix($name)) {
+            
             return $this->getByCalledClass($name);
         }
 
@@ -38,7 +40,6 @@ trait ServiceLocatorTrait
     protected function getByCalledClass($propertyName)
     {
         $className = ucwords($propertyName);
-
         foreach (static::supportAutoNamespaces() as $namespace) {
             if (class_exists("{$namespace}\\{$className}")) {
                 return Container::getInstance()->reflector("{$namespace}\\{$className}");
