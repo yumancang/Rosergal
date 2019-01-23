@@ -8,8 +8,13 @@ branches:
   only:
   - master
 
+services:
+  - mysql
+  - redis-server
+
 # 配置环境
 before_install:
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS `db_twinkle`;'
 
 install:
   - composer install --prefer-dist --optimize-autoloader --quiet
