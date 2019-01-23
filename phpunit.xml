@@ -7,4 +7,17 @@
         syntaxCheck="true"
         verbose="true"
 >
+    <testsuites>
+        <testsuite>
+            <directory>./tests</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./App</directory>
+        </whitelist>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./Framework</directory>
+        </whitelist>
+    </filter>
 </phpunit>
