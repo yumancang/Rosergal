@@ -19,6 +19,10 @@ before_install:
 install:
   - composer install --prefer-dist --optimize-autoloader --quiet
 
+before_script:
+  - mkdir -p Runtime
+  - chmod 666 Runtime
+
 script:
   - ./vendor/bin/phpunit --coverage-clover=coverage.clover
 
