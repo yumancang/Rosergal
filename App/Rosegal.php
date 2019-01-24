@@ -13,6 +13,10 @@ use Twinkle\Library\Framework\Hook;
 use Twinkle\Log\Drivers\File;
 use Twinkle\Log\Logger;
 
+/**
+ * Class Rosegal
+ * @package App
+ */
 class Rosegal extends Framework
 {
 
@@ -23,7 +27,7 @@ class Rosegal extends Framework
         $this->container->injection('fileLogger', new Logger(new File([
             'logPath' => ROOT_PATH . '/Runtime/logs',
             'logFile' => 'app.log',
-            'useBuffer' => true,
+            'useBuffer' => false,
             'bufferSize' => 10,
             'rotate' => 'day',
         ])));
@@ -45,5 +49,9 @@ class Rosegal extends Framework
         }
     }
 
-}
+    public function getLogger()
+    {
+        return $this->container->get('fileLogger');
+    }
 
+}
