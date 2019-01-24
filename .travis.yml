@@ -21,7 +21,8 @@ install:
 
 before_script:
   - mkdir -p Runtime
-  - chmod 666 Runtime
+  - chmod 777 Runtime
+  - ls -lrt
 
 script:
   - ./vendor/bin/phpunit --coverage-clover=coverage.clover
