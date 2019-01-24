@@ -6,7 +6,7 @@
  * Time: 14:26
  */
 
-define('ROOT_PATH', __DIR__);
+define('ROOT_PATH', dirname(__DIR__));
 
 error_reporting(E_ALL);
 $autoLoader = __DIR__ . '/../vendor/autoload.php';
@@ -16,5 +16,3 @@ if (! file_exists($autoLoader)) {
     exit(1);
 }
 require $autoLoader;
-
-App\Rosegal::Bootstrap();
