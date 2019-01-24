@@ -13,9 +13,6 @@
             <directory>./tests</directory>
         </testsuite>
     </testsuites>
-    <logging>
-        <log type="coverage-html" target="../Runtime" charset="UTF-8" />
-    </logging>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./App</directory>

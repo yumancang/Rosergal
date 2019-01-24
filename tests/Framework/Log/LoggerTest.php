@@ -9,7 +9,6 @@
 namespace Twinkle\Log;
 
 
-use App\Rosegal;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LogLevel;
 use Twinkle\Log\Drivers\File;
@@ -21,15 +20,18 @@ class LoggerTest extends TestCase
      */
     protected $storage;
 
-    protected function newLogger($useBuffer = false)
+    protected function newLogger($useBuffer = false,$rotate = 'day')
     {
         $this->storage = new File([
             'logPath' => ROOT_PATH . '/Runtime/logs',
             'logFile' => 'app.log',
             'useBuffer' => $useBuffer,
             'bufferSize' => 10,
-            'rotate' => 'day',
+            'rotate' => $rotate,
         ]);
+        if (file_exists($this->storage->logFile)) {
+            unlink($this->storage->logFile);
+        }
         return new Logger($this->storage);
     }
 
@@ -43,11 +45,41 @@ class LoggerTest extends TestCase
         $this->assertContains($requestId, $logContent);
         $this->assertContains('testInfo', $logContent);
         $this->assertContains('[' . LogLevel::INFO . ']', $logContent);
+        $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
+        $logger->debug('testDebug', [
+            'trace' => $trace
+        ]);
+        $logContent = file_get_contents($this->storage->logFile);
+        $this->assertContains('[' . LogLevel::DEBUG . ']', $logContent);
     }
 
     public function testUseBuffer()
     {
-        $logger =  $this->newLogger(true);
+        $logger = $this->newLogger(true,File::ROTATE_HOUR);
+
+        $logList = [
+            'emergency',
+            'alert',
+            'critical',
+            'error',
+            'warning',
+            'notice',
+            'info',
+            'debug',
+        ];
+
+        foreach ($logList as $level) {
+            $logger->{$level}($level);
+        }
+        unset($logger);
+        $this->assertFileExists($this->storage->logFile);
+        $rh = fopen($this->storage->logFile,'r');
+        $count = 0;
+        while ($row = fgets($rh)) {
+            $this->assertContains('[' . $logList[$count] . ']', $row);
+            $count++;
+        }
+        $this->assertEquals(8,$count);
     }
 
 }
