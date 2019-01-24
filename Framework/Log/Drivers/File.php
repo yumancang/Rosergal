@@ -22,7 +22,7 @@ class File extends Log
     const ROTATE_YEAR = 'year';
 
     const ROTATE_MAP = [
-        self::ROTATE_DAY => ['Y/m/d', 'H_'],
+        self::ROTATE_HOUR => ['Y/m/d', 'H_'],
         self::ROTATE_DAY => 'Y/m/d',
         self::ROTATE_MONTH => 'Y/m',
         self::ROTATE_YEAR => 'Y',

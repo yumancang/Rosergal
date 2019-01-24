@@ -16,39 +16,38 @@ use Twinkle\Log\Drivers\File;
 
 class LoggerTest extends TestCase
 {
-
-    /**
-     * @var Logger
-     */
-    protected $logger;
-
     /**
      * @var File
      */
     protected $storage;
 
-    public function setUp()
+    protected function newLogger($useBuffer = false)
     {
         $this->storage = new File([
             'logPath' => ROOT_PATH . '/Runtime/logs',
             'logFile' => 'app.log',
-            'useBuffer' => false,
+            'useBuffer' => $useBuffer,
             'bufferSize' => 10,
             'rotate' => 'day',
         ]);
-        $this->logger = new Logger($this->storage);
+        return new Logger($this->storage);
     }
 
     public function testInfo()
     {
         $requestId = Request::singleton()->getRequestId();
-
-        $this->logger->info('testInfo');
+        $logger = $this->newLogger();
+        $logger->info('testInfo');
         $this->assertFileExists($this->storage->logFile);
         $logContent = file_get_contents($this->storage->logFile);
         $this->assertContains($requestId, $logContent);
         $this->assertContains('testInfo', $logContent);
         $this->assertContains('[' . LogLevel::INFO . ']', $logContent);
+    }
+
+    public function testUseBuffer()
+    {
+        $logger =  $this->newLogger(true);
     }
 
 }
