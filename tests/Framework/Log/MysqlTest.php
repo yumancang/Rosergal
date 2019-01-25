@@ -48,7 +48,7 @@ class MysqlTest extends TestCase
 
     protected function createTable()
     {
-        $sql = "CREATE TABLE `log` IF NOT EXISTS (
+        $sql = "CREATE TABLE IF NOT EXISTS `log` (
                   `id` bigint(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
                   `request_id` varchar(64) NOT NULL DEFAULT '' COMMENT '请求ID',
                   `level` varchar(8) NOT NULL DEFAULT '' COMMENT '错误类型',
