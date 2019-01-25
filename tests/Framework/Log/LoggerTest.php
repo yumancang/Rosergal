@@ -23,7 +23,7 @@ class LoggerTest extends TestCase
     protected function newLogger($useBuffer = false,$rotate = 'day')
     {
         $this->storage = new File([
-            'logPath' => './Runtime',
+            'logPath' => ROOT_PATH . '/Runtime/logs',
             'logFile' => 'app.log',
             'useBuffer' => $useBuffer,
             'bufferSize' => 10,
@@ -38,7 +38,7 @@ class LoggerTest extends TestCase
     public function testInfo()
     {
         $requestId = Request::singleton()->getRequestId();
-        $logger = $this->newLogger(false,'root');
+        $logger = $this->newLogger();
         $logger->info('testInfo');
         $this->assertFileExists($this->storage->logFile);
         $logContent = file_get_contents($this->storage->logFile);

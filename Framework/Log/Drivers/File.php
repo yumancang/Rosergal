@@ -21,7 +21,7 @@ class File extends Log
 
     const ROTATE_YEAR = 'year';
 
-    const ROTATE_MAP = [
+    private static $ROTATE_MAP = [
         self::ROTATE_HOUR => ['Y/m/d', 'H_'],
         self::ROTATE_DAY => 'Y/m/d',
         self::ROTATE_MONTH => 'Y/m',
@@ -39,18 +39,18 @@ class File extends Log
         parent::init($config);
 
         $prefix = '';
-        if (!empty(self::ROTATE_MAP[$this->rotate])) {
-            if (is_array(self::ROTATE_MAP[$this->rotate])) {
-                $prefix = date(self::ROTATE_MAP[$this->rotate][1]);
-                $path = date(self::ROTATE_MAP[$this->rotate][0]);
+        if (isset(self::$ROTATE_MAP[$this->rotate])) {
+            if (is_array(self::$ROTATE_MAP[$this->rotate])) {
+                $prefix = date(self::$ROTATE_MAP[$this->rotate][1]);
+                $path = date(self::$ROTATE_MAP[$this->rotate][0]);
             } else {
-                $path = date(self::ROTATE_MAP[$this->rotate]);
+                $path = date(self::$ROTATE_MAP[$this->rotate]);
             }
             $this->logPath = $this->logPath . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $path);
         }
 
         if (!is_dir($this->logPath)) {
-            mkdir($this->logPath, '0777', true);
+            mkdir($this->logPath, 0777, true);
         }
 
         $this->logFile = $this->logPath . DIRECTORY_SEPARATOR . $prefix . $this->logFile;
