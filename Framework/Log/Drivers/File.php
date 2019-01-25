@@ -48,6 +48,7 @@ class File extends Log
             }
             $this->logPath = $this->logPath . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $path);
         }
+        echo $this->logPath;
         if (!is_dir($this->logPath)) {
             mkdir($this->logPath, '0666', true);
         }

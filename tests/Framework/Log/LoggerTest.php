@@ -39,7 +39,6 @@ class LoggerTest extends TestCase
     {
         $requestId = Request::singleton()->getRequestId();
         $logger = $this->newLogger();
-        echo $this->storage->logFile;
         $logger->info('testInfo');
         $this->assertFileExists($this->storage->logFile);
         $logContent = file_get_contents($this->storage->logFile);
