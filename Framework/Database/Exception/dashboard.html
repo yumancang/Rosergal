@@ -2,7 +2,7 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
-  <title>Dashboard for /home/travis/build/yumancang/Rosergal/Framework/Library/Model</title>
+  <title>Dashboard for /home/travis/build/yumancang/Rosergal/Framework/Database/Exception</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="../../../css/bootstrap.min.css" rel="stylesheet">
   <link href="../../../css/nv.d3.min.css" rel="stylesheet">
@@ -20,8 +20,8 @@
       <ol class="breadcrumb">
         <li><a href="../../../index.html">/home/travis/build/yumancang/Rosergal</a></li>
         <li><a href="../../index.html">Framework</a></li>
-        <li><a href="../index.html">Library</a></li>
-        <li><a href="index.html">Model</a></li>
+        <li><a href="../index.html">Database</a></li>
+        <li><a href="index.html">Exception</a></li>
         <li class="active">(Dashboard)</li>
 
       </ol>
@@ -61,7 +61,6 @@
         </tr>
        </thead>
        <tbody>
-       <tr><td><a href="Model.php.html#20">Model</a></td><td class="text-right">0%</td></tr>
 
        </tbody>
       </table>
@@ -115,10 +114,6 @@
         </tr>
        </thead>
        <tbody>
-       <tr><td><a href="Model.php.html#27"><abbr title="Model::tableName">tableName</abbr></a></td><td class="text-right">0%</td></tr>
-       <tr><td><a href="Model.php.html#35"><abbr title="Model::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
-       <tr><td><a href="Model.php.html#44"><abbr title="Model::getConnection">getConnection</abbr></a></td><td class="text-right">0%</td></tr>
-       <tr><td><a href="Model.php.html#50"><abbr title="Model::insertData">insertData</abbr></a></td><td class="text-right">0%</td></tr>
 
        </tbody>
       </table>
@@ -165,7 +160,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#classCoverageDistribution svg')
-      .datum(getCoverageDistributionData([1,0,0,0,0,0,0,0,0,0,0,0], "Class Coverage"))
+      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,1], "Class Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -183,7 +178,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#methodCoverageDistribution svg')
-      .datum(getCoverageDistributionData([4,0,0,0,0,0,0,0,0,0,0,0], "Method Coverage"))
+      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,0], "Method Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -233,7 +228,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Cyclomatic Complexity');
 
     d3.select('#classComplexity svg')
-      .datum(getComplexityData([[0,4,"<a href=\"Model.php.html#20\">Model<\/a>"]], 'Class Complexity'))
+      .datum(getComplexityData([[100,0,"<a href=\"NotFoundException.php.html#12\">NotFoundException<\/a>"]], 'Class Complexity'))
       .transition()
       .duration(500)
       .call(chart);
@@ -257,7 +252,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Method Complexity');
 
     d3.select('#methodComplexity svg')
-      .datum(getComplexityData([[0,1,"<a href=\"Model.php.html#27\">Model::tableName<\/a>"],[0,1,"<a href=\"Model.php.html#35\">Model::__construct<\/a>"],[0,1,"<a href=\"Model.php.html#44\">Model::getConnection<\/a>"],[0,1,"<a href=\"Model.php.html#50\">Model::insertData<\/a>"]], 'Method Complexity'))
+      .datum(getComplexityData([], 'Method Complexity'))
       .transition()
       .duration(500)
       .call(chart);
