@@ -10,6 +10,7 @@ namespace Twinkle\Database;
 
 
 use Twinkle\Database\Exception\NotFoundException;
+use Twinkle\Library\Config\ConfigLoader;
 
 class ConnectionTest extends \PHPUnit_Framework_TestCase
 {
@@ -24,24 +25,16 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped("Need 'pdo_mysql' extension to test mysql.");
         }
 
-        $this->master = function () {
-            return new DB([
-                'dsn' => 'mysql:host=127.0.0.1;port=3306;dbname=db_twinkle',
-                'username' => 'root',
-            ]);
+        $database = ConfigLoader::$Config['database.php']['db'];
+        $this->master = function () use ($database) {
+            return new DB($database['write']);
         };
 
-        $slave1 = function () {
-            return new DB([
-                'dsn' => 'mysql:host=127.0.0.1;port=3306;dbname=db_twinkle',
-                'username' => 'travis',
-            ]);
+        $slave1 = function () use ($database) {
+            return new DB($database['read'][0]);
         };
-        $slave2 = function () {
-            return new DB([
-                'dsn' => 'mysql:host=127.0.0.1;port=3306;dbname=db_twinkle',
-                'username' => 'root',
-            ]);
+        $slave2 = function () use ($database) {
+            return new DB($database['read'][1]);
         };
         $this->slaves = [
             'slave1' => $slave1,

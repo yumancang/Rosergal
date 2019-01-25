@@ -11,7 +11,7 @@ namespace Twinkle\Library\Model;
 
 use Twinkle\Database\Connection;
 use Twinkle\Library\Common\Helper;
-use Twinkle\Library\Framework\Container;
+use Twinkle\Library\Framework\Framework;
 
 /**
  * Class Model
@@ -27,7 +27,7 @@ abstract class Model
     public static function tableName()
     {
         return Helper::revertUcWords(
-            substr(strrchr(get_called_class(), '\\'), 1),
+            rtrim(substr(strrchr(get_called_class(), '\\'), 1),'Model'),
             '_'
         );
     }
@@ -43,8 +43,7 @@ abstract class Model
      */
     public static function getConnection()
     {
-        $container = Container::getInstance();
-        return $container['dbService'];
+        return Framework::$app->container->get('db');
     }
 
     public function insertData($data)

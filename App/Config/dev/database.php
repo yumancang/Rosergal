@@ -9,13 +9,20 @@
 return [
     'db' => [
         'write' => [
-            'dsn' => 'mysql:host=127.0.0.1;port=3306;dbname=db_twinkle',
-            'username' => 'root',
+            'dsn' => 'mysql:host=local.test.mysql;port=3306;dbname=db_twinkle',
+            'username' => 'db_master_user',
+            'password' => 'db_master_pass',
         ],
         'read' => [
             [
-                'dsn' => 'mysql:host=127.0.0.1;port=3306;dbname=db_twinkle',
-                'username' => 'travis',
+                'dsn' => 'mysql:host=local.test.mysql;port=3306;dbname=db_twinkle',
+                'username' => 'db_slave_user',
+                'password' => 'db_slave_pass',
+            ],
+            [
+                'dsn' => 'mysql:host=local.test.mysql;port=3306;dbname=db_twinkle',
+                'username' => 'db_slave_user',
+                'password' => 'db_slave_pass',
             ],
         ]
     ]

@@ -16,3 +16,6 @@ if (! file_exists($autoLoader)) {
     exit(1);
 }
 require $autoLoader;
+
+\Twinkle\Library\Framework\Framework::simpleBoot();
+\Twinkle\Library\Config\ConfigLoader::LoadConfig(ROOT_PATH . '/App/Config/phpunit','database.php');

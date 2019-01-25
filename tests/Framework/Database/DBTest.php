@@ -8,6 +8,7 @@ namespace Twinkle\Database;
  * Date: 2019/1/19
  * Time: 23:22
  */
+use Twinkle\Library\Config\ConfigLoader;
 
 /**
  * Class DBTest
@@ -49,10 +50,8 @@ class DBTest extends \PHPUnit_Framework_TestCase
      */
     protected function newDb()
     {
-        return new DB([
-            'dsn' => 'mysql:host=127.0.0.1;port=3306;dbname=db_twinkle',
-            'username' => 'root',
-        ]);
+        $database = ConfigLoader::$Config['database.php']['db'];
+        return new DB($database['write']);
     }
 
     protected function createTable()

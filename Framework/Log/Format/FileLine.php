@@ -20,8 +20,8 @@ class FileLine extends Base
     {
         return vsprintf("[%s] [%s] %s [%s] %s %s" . PHP_EOL,
             [
-                $this->request_id,
-                $this->create_time,
+                $this->requestId,
+                $this->createTime,
                 empty($this->location) ? '' : "file[{$this->location['file']}]  line[{$this->location['line']}]",
                 $this->level,
                 $this->message,

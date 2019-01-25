@@ -21,16 +21,6 @@ class Query
     protected $groupBy = array();
     protected $limit = "";
 
-
-    /**
-     * Database SQL Builder
-     *
-     */
-    public function __construct()
-    {
-
-    }
-
     /**
      * Add statement for select - SELECT [?] FROM ...
      *
