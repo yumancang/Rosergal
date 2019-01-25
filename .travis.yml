@@ -19,14 +19,20 @@ before_install:
 install:
   - composer install --prefer-dist --optimize-autoloader --quiet
 
+before_script:
+  - mkdir -p Runtime
+  - chmod 777 Runtime
+  - ls -lrt
+
 script:
-  - ./vendor/bin/phpunit --coverage-clover=coverage.clover
+  - ./vendor/bin/phpunit --coverage-html=./Runtime/tests/
 
 deploy:
   provider: pages
   skip-cleanup: true
   github-token: $GITHUB_ACCESS_TOKEN
-  target-branch: deploy
+  target-branch: gh-pages
+  local_dir: Runtime/tests/
   keep-history: true
   on:
     branch: master
