@@ -48,13 +48,10 @@ class File extends Log
             }
             $this->logPath = $this->logPath . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $path);
         }
-        echo $this->logPath;
-        $ret = exec("whoami",$output,$status);
-        print_r($ret);
-        print_r($output);
-        print_r($status);
+
         if (!is_dir($this->logPath)) {
-            mkdir($this->logPath, '0666', true);
+            $this->logPath = realpath($this->logPath);
+            mkdir($this->logPath, '0777', true);
         }
 
         $this->logFile = $this->logPath . DIRECTORY_SEPARATOR . $prefix . $this->logFile;
