@@ -50,7 +50,6 @@ class File extends Log
         }
 
         if (!is_dir($this->logPath)) {
-            $this->logPath = realpath($this->logPath);
             mkdir($this->logPath, '0777', true);
         }
 

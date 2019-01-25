@@ -23,7 +23,7 @@ class LoggerTest extends TestCase
     protected function newLogger($useBuffer = false,$rotate = 'day')
     {
         $this->storage = new File([
-            'logPath' => ROOT_PATH . '/Runtime/logs',
+            'logPath' => './Runtime/logs',
             'logFile' => 'app.log',
             'useBuffer' => $useBuffer,
             'bufferSize' => 10,
