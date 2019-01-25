@@ -50,7 +50,7 @@ class DBTest extends \PHPUnit_Framework_TestCase
     protected function newDb()
     {
         return new DB([
-            'dsn' => 'mysql:host=127.0.0.1;port=3306;dbname=twinkle_test',
+            'dsn' => 'mysql:host=127.0.0.1;port=3306;dbname=db_twinkle',
             'username' => 'root',
         ]);
     }
@@ -58,8 +58,8 @@ class DBTest extends \PHPUnit_Framework_TestCase
     protected function createTable()
     {
         $sql = "
-        DROP TABLE IF EXISTS db_test;
-        CREATE TABLE `db_test` (
+        DROP TABLE IF EXISTS tb_test;
+        CREATE TABLE `tb_test` (
             `id`  int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID' ,
             `name`  varchar(32) NOT NULL DEFAULT '' COMMENT '名称' ,
             PRIMARY KEY (`id`)
@@ -70,14 +70,14 @@ class DBTest extends \PHPUnit_Framework_TestCase
     protected function fillTable()
     {
         foreach ($this->data as $id => $name) {
-            $this->db->insert('db_test',['name' => $name]);
+            $this->db->insert('tb_test',['name' => $name]);
         }
     }
 
     public function testExecQuery()
     {
         $stm = $this->db->execQuery(
-            (new Query())->select('id,name')->from('db_test')
+            (new Query())->select('id,name')->from('tb_test')
         );
         $this->assertInstanceOf(Statement::class, $stm);
         $result = $stm->fetchAll();
@@ -88,7 +88,7 @@ class DBTest extends \PHPUnit_Framework_TestCase
 
     public function testInsert()
     {
-        $stm = $this->db->insert('db_test',['name' => 'testInsert']);
+        $stm = $this->db->insert('tb_test',['name' => 'testInsert']);
         $affectedCount = $stm->rowCount();
         $this->assertEquals(1, $affectedCount);
     }

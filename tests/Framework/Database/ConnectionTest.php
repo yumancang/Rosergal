@@ -26,20 +26,20 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
 
         $this->master = function () {
             return new DB([
-                'dsn' => 'mysql:host=127.0.0.1;port=3306;dbname=twinkle_test',
+                'dsn' => 'mysql:host=127.0.0.1;port=3306;dbname=db_twinkle',
                 'username' => 'root',
             ]);
         };
 
         $slave1 = function () {
             return new DB([
-                'dsn' => 'mysql:host=127.0.0.1;port=3306;dbname=twinkle_test',
+                'dsn' => 'mysql:host=127.0.0.1;port=3306;dbname=db_twinkle',
                 'username' => 'travis',
             ]);
         };
         $slave2 = function () {
             return new DB([
-                'dsn' => 'mysql:host=127.0.0.1;port=3306;dbname=twinkle_test',
+                'dsn' => 'mysql:host=127.0.0.1;port=3306;dbname=db_twinkle',
                 'username' => 'root',
             ]);
         };
