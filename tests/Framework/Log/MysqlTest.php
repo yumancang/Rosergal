@@ -43,12 +43,12 @@ class MysqlTest extends TestCase
             });
         }
         $this->logModel = new LogModel();
+        $this->createTable();
     }
 
     protected function createTable()
     {
-        $sql = "DROP TABLE IF EXISTS `log`;
-                CREATE TABLE `log` (
+        $sql = "CREATE TABLE `log` IF NOT EXISTS (
                   `id` bigint(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
                   `request_id` varchar(64) NOT NULL DEFAULT '' COMMENT '请求ID',
                   `level` varchar(8) NOT NULL DEFAULT '' COMMENT '错误类型',
