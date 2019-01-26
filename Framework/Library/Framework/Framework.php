@@ -39,7 +39,7 @@ class Framework
      * @param Container $RContainer
      *
      * */
-    private function __construct(Container $RContainer = null)
+    private function __construct(Container $RContainer)
     {
         $this->container = $RContainer;
 

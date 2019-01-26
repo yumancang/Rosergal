@@ -118,7 +118,7 @@ class Container extends \Twinkle\DI\Container
         }
 
 
-        if (is_string($name) && is_object($concrete)) {
+        if (is_string($name)) {
             parent::injection($name,$concrete);
             return true;
         }

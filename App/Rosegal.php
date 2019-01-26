@@ -44,8 +44,8 @@ class Rosegal extends Framework
 
         #注入业务组件
         ConfigLoader::LoadConfig(APP_PATH . '/Config', 'alias_class.php');
-        foreach (ConfigLoader::$Config['alias_class.php'] as $name => $classname) {
-            $this->container->make($name, $classname);
+        foreach (ConfigLoader::$Config['alias_class.php'] as $name => $class) {
+            $this->container->injection($name, $class);
         }
 
         #注入业务插件
