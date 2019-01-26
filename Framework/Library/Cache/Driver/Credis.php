@@ -109,7 +109,8 @@ class Credis extends CacheAbstract
         $this->cache->set($this->getKey($key), $val);
         if ($expire > 0) {
            $this->cache->expire($this->getKey($key), $expire);
-        } 
+        }
+        return true;
     }
     
     public function get($key)
@@ -145,6 +146,19 @@ class Credis extends CacheAbstract
     public function getKey($key)
     {
         return $key;
+    }
+    
+    
+    /**
+     * 兼容没有其他的命令
+     *
+     * @param unknown $command
+     * @param array $arguments
+     * @return boolean
+     */
+    public function __call($command, array $arguments = [])
+    {
+        throw new \Exception('命令不匹配',13232);
     }
 
 }
