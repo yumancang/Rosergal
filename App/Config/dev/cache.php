@@ -108,6 +108,20 @@ return [
         ],
     ],
     
+    /*********memcache**********/
+    #memcache,memcache_cluser
+    'memcache' => [
+        'mode' => 'memcache', #模式
+        'config' => [
+            'servers' => [
+                ['host' => '127.0.0.1','port' => '11211', 'persistent' => true],
+            ],
+            'options' => [
+                
+            ],
+        ],
+    ],
+    
     
     /* 'memcache' => [
         'mode' => 'memcache_cluser', #模式

@@ -52,7 +52,4 @@ class CacheTest extends TestCase
         $this->assertEquals('value',$this->cache->hget('hash','field'));
     }
 
-    
-    
-    
 }
