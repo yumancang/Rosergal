@@ -8,6 +8,8 @@
 
 define('ROOT_PATH', dirname(__DIR__));
 
+define('TK_ENV','phpunit');
+
 error_reporting(E_ALL);
 $autoLoader = __DIR__ . '/../vendor/autoload.php';
 if (! file_exists($autoLoader)) {
@@ -17,5 +19,5 @@ if (! file_exists($autoLoader)) {
 }
 require $autoLoader;
 
+\Twinkle\Library\Config\ConfigLoader::LoadConfig(ROOT_PATH . '/App/Config/' . TK_ENV, 'database.php');
 \Twinkle\Library\Framework\Framework::simpleBoot();
-\Twinkle\Library\Config\ConfigLoader::LoadConfig(ROOT_PATH . '/App/Config/phpunit','database.php');

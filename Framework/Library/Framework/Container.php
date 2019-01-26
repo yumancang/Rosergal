@@ -27,15 +27,15 @@ class Container extends \Twinkle\DI\Container
     public $mapperInstances;
 
 
-    private static $_instance = null;
+    private static $instance = null;
 
 
     public static function getInstance()
     {
-        if (null === self::$_instance) {
-            self::$_instance = new self();
+        if (null === self::$instance) {
+            self::$instance = new self();
         }
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**
@@ -55,11 +55,7 @@ class Container extends \Twinkle\DI\Container
      * */
     public function initializationService()
     {
-        $this->injection('dbService', function () {
-            return new Connection((new MasterDbServiceProvider())->handler(), [
-                (new SlaveDbServiceProvider())->handler(),
-            ]);
-        });
+
     }
 
 
@@ -97,7 +93,7 @@ class Container extends \Twinkle\DI\Container
     public function loadSystemConfig()
     {
         #加载系统级配置
-        ConfigLoader::LoadConfig(FRAMEWORK_PATH . '/Config', 'cache.php');
+
     }
 
 
@@ -126,7 +122,6 @@ class Container extends \Twinkle\DI\Container
             parent::injection($name,$concrete);
             return true;
         }
-
 
         throw new \Exception($name . ':注入组件', 10000);
 
@@ -223,8 +218,6 @@ class Container extends \Twinkle\DI\Container
             //没有传入就用默认参数
             $dependencies = $constructor->getParameters();
 
-            $parameters = [];
-
             $parameters = $this->getParametersByDependencies($dependencies);
 
             if (empty($parameters)) {
@@ -262,8 +255,6 @@ class Container extends \Twinkle\DI\Container
             //没有传入就用默认参数
             $dependencies = $constructor->getParameters();
             
-            $parameters = [];
-            
             $parameters = $this->getParametersByDependencies($dependencies);
             
             if (empty($parameters)) {
@@ -291,7 +282,7 @@ class Container extends \Twinkle\DI\Container
 
                 $paramName = $param->getClass()->name;
                 if ($paramName === 'Twinkle\Library\Framework\Container') {
-                    $parameters[] = static::$app;
+                    $parameters[] = static::$instance;
                 } else {
                     $paramObject = $this->reflector($paramName);
                     $parameters[] = $paramObject;
@@ -333,7 +324,6 @@ class Container extends \Twinkle\DI\Container
     public function __toString()
     {
         pre($this->aliasMapperClass);
-        pre($this->classMapperAlias);
         pre($this->mapperInstances);
         return 'f';
     }

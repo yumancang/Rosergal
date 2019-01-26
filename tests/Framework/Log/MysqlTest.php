@@ -27,21 +27,6 @@ class MysqlTest extends TestCase
 
     public function setUp()
     {
-        $config = ConfigLoader::$Config['database.php'];
-        foreach ($config as $id => $item) {
-            Framework::$app->container->injection('db', function () use ($item) {
-                $master = function () use ($item) {
-                    return new DB($item['write']);
-                };
-                $slaves = [];
-                foreach ($item['read'] as $kk => $vv) {
-                    $slaves[] = function () use ($vv) {
-                        return new DB($vv);
-                    };
-                }
-                return new Connection($master, $slaves);
-            });
-        }
         $this->logModel = new LogModel();
         $this->createTable();
     }

@@ -81,8 +81,8 @@ abstract class AbstractContainer implements ContainerInterface
 
     public function reflector($concrete, array $params = [])
     {
-        if (is_callable($concrete)) {
-            return call_user_func_array($concrete, $params);
+        if ($concrete instanceof \Closure) {
+            return $concrete($params);
         } elseif (is_string($concrete)) {
             $reflection = new \ReflectionClass($concrete);
             $dependencies = $this->getDependencies($reflection);

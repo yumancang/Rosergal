@@ -8,6 +8,10 @@
 namespace Twinkle\Library\Framework;
 
 
+use Twinkle\Database\Connection;
+use Twinkle\Database\DB;
+use Twinkle\Library\Config\ConfigLoader;
+
 class Framework
 {
     /**
@@ -39,9 +43,10 @@ class Framework
     {
         $this->container = $RContainer;
 
-        $this->preInit();
-
         define('FRAMEWORK_PATH', str_replace('/Library/Framework/Framework.php', '', str_replace('\\', '/', __FILE__)));
+        defined('TK_ENV') OR define('TK_ENV', 'dev');
+
+        $this->preInit();
 
         self::$app = $this;
     }
@@ -67,7 +72,26 @@ class Framework
 
     protected function preInit()
     {
-
+        // database
+        if (!empty($database = ConfigLoader::$Config['database.php'])) {
+            foreach ($database as $id => $item) {
+                $this->container->injection($id,function () use ($item) {
+                    if (empty($item['read'])) {
+                        $item['read'] = [];
+                    }
+                    $master = function () use ($item) {
+                        return new DB($item['write']);
+                    };
+                    $slaves = [];
+                    foreach ($item['read'] as $kk => $vv) {
+                        $slaves[] = function () use ($vv) {
+                            return new DB($vv);
+                        };
+                    }
+                    return new Connection($master, $slaves);
+                });
+            }
+        }
     }
 
     /**
