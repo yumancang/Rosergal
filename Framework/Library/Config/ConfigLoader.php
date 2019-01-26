@@ -14,8 +14,11 @@ class ConfigLoader
 
     public static function LoadConfig($path, $filename)
     {
-        $config = include $path . '/' . $filename;
-        return self::$Config[$filename] = $config;
+        if (file_exists($realFile = $path . '/' . $filename)) {
+            $config = include $realFile;
+            return self::$Config[$filename] = $config;
+        }
+        return false;
     }
 
 
