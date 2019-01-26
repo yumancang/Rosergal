@@ -32,6 +32,9 @@ class Rosegal extends Framework
             'rotate' => 'day',
         ])));
 
+        ConfigLoader::LoadConfig(APP_PATH . '/Config/' . TK_ENV, 'database.php');
+        ConfigLoader::LoadConfig(APP_PATH . '/Config/' . TK_ENV, 'cache.php');
+
         parent::preInit();
     }
 
