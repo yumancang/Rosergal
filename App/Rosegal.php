@@ -32,10 +32,13 @@ class Rosegal extends Framework
             'rotate' => 'day',
         ])));
 
+        parent::preInit();
     }
 
     protected function init()
     {
+        parent::init();
+
         #注入业务组件
         ConfigLoader::LoadConfig(APP_PATH . '/Config', 'alias_class.php');
         foreach (ConfigLoader::$Config['alias_class.php'] as $name => $classname) {
@@ -47,6 +50,8 @@ class Rosegal extends Framework
         foreach (ConfigLoader::$Config['plugin.php'] as $configFilename => $pluginClassPath) {
             Hook::getInstance()->registerPlugin($configFilename, new $pluginClassPath());
         }
+
+        return $this;
     }
 
     public function getLogger()

@@ -9,15 +9,15 @@ namespace Twinkle\Library\Config;
 
 class ConfigLoader
 {
-    
+
     public static $Config;
 
     public static function LoadConfig($path, $filename)
     {
         $config = include $path . '/' . $filename;
-        self::$Config[$filename] = $config;
+        return self::$Config[$filename] = $config;
     }
-    
+
 
 }
 

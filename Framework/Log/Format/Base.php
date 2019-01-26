@@ -18,7 +18,7 @@ class Base
     protected $content;
 
     // 创建时间
-    protected $create_time;
+    protected $createTime;
 
     // 日志级别
     protected $level;
@@ -30,17 +30,17 @@ class Base
     protected $location;
 
     // 请求标识
-    protected $request_id;
+    protected $requestId;
 
 
     public function __construct($message, $location, $level, $content = '', $createTime = null)
     {
         $this->content = $content;
-        $this->create_time = null === $createTime ? date('Y-m-d H:i:s') : $createTime;
+        $this->createTime = null === $createTime ? date('Y-m-d H:i:s') : $createTime;
         $this->level = $level;
         $this->message = $message;
         $this->location = $location;
-        $this->request_id = Request::singleton()->getRequestId();
+        $this->requestId = Request::singleton()->getRequestId();
     }
 
 }

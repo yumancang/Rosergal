@@ -17,6 +17,10 @@ return [
                 'dsn' => 'mysql:host=127.0.0.1;port=3306;dbname=db_twinkle',
                 'username' => 'travis',
             ],
+            [
+                'dsn' => 'mysql:host=127.0.0.1;port=3306;dbname=db_twinkle',
+                'username' => 'travis',
+            ],
         ]
     ]
 ];

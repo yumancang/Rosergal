@@ -10,7 +10,6 @@
 
 namespace App\Model;
 
-use Twinkle\Database\DB;
 use Twinkle\Database\Query;
 use Twinkle\Library\Model\Model;
 
