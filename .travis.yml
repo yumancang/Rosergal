@@ -11,6 +11,7 @@ branches:
 services:
   - mysql
   - redis-server
+  - memcached
 
 # 配置环境
 before_install:
