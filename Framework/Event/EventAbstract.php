@@ -10,6 +10,12 @@ use Twinkle\Observer\ObserverInterface;
  * */
 abstract class EventAbstract implements EventInterface
 {
+    const BEFORE_EVENT = 0;
+    
+    const WHILE_EVENT = 1;
+    
+    const AFTER_EVENT = 2;
+    
     public $whileObservers = [];
     
     public $beforeObservers = [];

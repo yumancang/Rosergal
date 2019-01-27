@@ -41,26 +41,26 @@ class UserLoginEvent extends EventAbstract
     
     public function addObserver(ObserverInterface $observer, $type)
     {
-        if ($type === 1) {
+        if ($type === self::WHILE_EVENT) {
             $this->whileObservers[get_class($observer)] = $observer;
         }
-        if ($type === 0) {
+        if ($type === self::BEFORE_EVENT) {
             $this->beforeObservers[get_class($observer)] = $observer;
         }
-        if ($type === 2) {
+        if ($type === self::AFTER_EVENT) {
             $this->afterObservers[get_class($observer)] = $observer;
         }
     }
     
     public function delObserver(ObserverInterface $observer, $type)
     {
-        if ($type === 1) {
+        if ($type === self::WHILE_EVENT) {
             unset($this->whileObservers[get_class($observer)]);
         }
-        if ($type === 0) {
+        if ($type === self::BEFORE_EVENT) {
             unset($this->beforeObservers[get_class($observer)]);
         }
-        if ($type === 2) {
+        if ($type === self::AFTER_EVENT) {
             unset($this->afterObservers[get_class($observer)]);
         }
     }
