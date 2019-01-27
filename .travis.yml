@@ -15,7 +15,6 @@ services:
 
 # 配置环境
 before_install:
-  #- pecl install memcached
   - phpenv config-add .travis/myconfig.ini
   - mysql -e 'CREATE DATABASE IF NOT EXISTS `db_twinkle`;'
 
