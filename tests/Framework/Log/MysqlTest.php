@@ -11,10 +11,6 @@ namespace Twinkle\Log;
 
 use App\Model\LogModel;
 use PHPUnit\Framework\TestCase;
-use Twinkle\Database\Connection;
-use Twinkle\Database\DB;
-use Twinkle\Library\Config\ConfigLoader;
-use Twinkle\Library\Framework\Framework;
 use Twinkle\Log\Drivers\Mysql;
 
 class MysqlTest extends TestCase
