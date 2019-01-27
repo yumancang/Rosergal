@@ -6,12 +6,10 @@
  * Time: 10:08
  */
 
-namespace Twinkle\Library\Service;
+namespace Twinkle\DI;
 
 
 use Twinkle\DI\Exception\NotFoundException;
-use Twinkle\Library\Common\Helper;
-use Twinkle\Library\Framework\Framework;
 
 
 trait ServiceLocatorTrait
@@ -19,7 +17,22 @@ trait ServiceLocatorTrait
 
     public static function supportAutoNamespaces()
     {
-        return [];
+        $namespace = __NAMESPACE__;
+        return [$namespace];
+    }
+
+    public static function supportedClassSuffix()
+    {
+        return [
+            'Service',
+            'Model',
+            'Facade'
+        ];
+    }
+
+    public static function getContainer()
+    {
+        return Tools::getContainer();
     }
 
     /**
@@ -29,13 +42,9 @@ trait ServiceLocatorTrait
      */
     public function __get($name)
     {
-
         if ($this->isSupportedClassSuffix($name)) {
-            
             return $this->getByCalledClass($name);
         }
-
-        return parent::__get($name);
     }
 
     protected function getByCalledClass($propertyName)
@@ -43,7 +52,7 @@ trait ServiceLocatorTrait
         $className = ucwords($propertyName);
         foreach (static::supportAutoNamespaces() as $namespace) {
             if (class_exists("{$namespace}\\{$className}")) {
-                return Framework::$app->container->reflector("{$namespace}\\{$className}");
+                return static::getContainer()->reflector("{$namespace}\\{$className}");
             }
         }
 
@@ -58,13 +67,17 @@ trait ServiceLocatorTrait
      */
     protected function isSupportedClassSuffix($name)
     {
-        $suffixList = [
-            'Service',
-            'Model',
-            'Facade'
-        ];
+        $suffixList = static::supportedClassSuffix();
 
-        return Helper::endWith($name, $suffixList) && !in_array($name, $suffixList);
+        if (!in_array($name, $suffixList)) {
+            foreach ($suffixList as $item) {
+                if ($item == substr($name, -strlen($item))) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
 }
