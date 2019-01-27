@@ -8,10 +8,10 @@
 return [
     #credis,credis_replication,redis-sentinels,redis-cluser,
     #predis,predis_replication,predis-sentinels,predis-cluser
-    #memcache,memcache_cluser
+    #memcached,memcached_cluser
     
     #当前用的驱动
-    'driver' => 'credis',    
+    'driver' => 'memcached',    
     
     /***********php-redis**************/
     #单主机
@@ -94,6 +94,20 @@ return [
         ],
     ],
     
+    /*********memcached**********/
+    #memcached,memcached_cluser
+    'memcached' => [
+        'mode' => 'memcached', #模式
+        'config' => [
+            'servers' => [
+                ['host' => '127.0.0.1','port' => '11211', 'persistent' => true],
+            ],
+            'options' => [
+                
+            ],
+        ],
+    ],
+    
     /*********memcache**********/
     #memcache,memcache_cluser
     'memcache' => [
@@ -103,7 +117,7 @@ return [
                 ['host' => '127.0.0.1','port' => '11211', 'persistent' => true],
             ],
             'options' => [
-                'compress' => true  #是否压缩
+                
             ],
         ],
     ],

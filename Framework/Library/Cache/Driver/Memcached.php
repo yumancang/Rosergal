@@ -1,37 +1,33 @@
 <?php
 namespace Twinkle\Library\Cache\Driver;
 /**
- * Memcache 不压缩
+ * Memcached 
  *
  * @author yumancang
  *
  * */
 use Twinkle\Library\Cache\CacheAbstract;
-class Memcache extends CacheAbstract
+class Memcached extends CacheAbstract
 {
-    private $compress;
-    
     public function __construct(array $config)
     {
         parent::__construct($config);
         switch ($config['mode']) {
-            case 'memcache':
+            case 'memcached':
                 goto MEMCACHE_CLUSER;
-            case 'memcache_cluser':
+            case 'memcached_cluser':
                 goto MEMCACHE_CLUSER;
             default:
                 goto MEMCACHE_EXCEPTION;
         }
         
         MEMCACHE_CLUSER : {
-            $this->cache = new \Memcache();
+            $this->cache = new \Memcached();
             foreach ($config['config']['servers'] as $val) {
                 $persistent = isset($val['persistent']) && $val['persistent'] ? true : null;
                 $this->cache->addServer($val['host'], $val['port'], $persistent);
             }
-            
-            $this->compress = isset($config['config']['options']['compress'])
-            && $config['config']['options']['compress'] ? MEMCACHE_COMPRESSED : null;
+
             return true;
         }
         
@@ -44,7 +40,7 @@ class Memcache extends CacheAbstract
     
     public function set($key, $val, $expire = 0)
     {
-        return $this->cache->set($this->getKey($key), $val, $this->compress, $expire);
+        return $this->cache->set($this->getKey($key), $val, $expire);
     }
     
     public function get($key)
@@ -64,13 +60,15 @@ class Memcache extends CacheAbstract
     
     /**
      * 兼容Memcache没有其他的命令
-     *
+     * 
      * @param unknown $command
      * @param array $arguments
      * @return boolean
      */
     public function __call($command, array $arguments = [])
     {
-        throw new \Exception('命令不匹配',13232);
+        throw new \Exception('命令不匹配',13232);   
     }
+
+
 }
