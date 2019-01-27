@@ -11,9 +11,11 @@ branches:
 services:
   - mysql
   - redis-server
+  - memcached
 
 # 配置环境
 before_install:
+  - phpenv config-add .travis/myconfig.ini
   - mysql -e 'CREATE DATABASE IF NOT EXISTS `db_twinkle`;'
 
 install:
@@ -22,6 +24,7 @@ install:
 before_script:
   - mkdir -p Runtime
   - chmod 777 Runtime
+  - php -m
 
 script:
   - ./vendor/bin/phpunit --coverage-html=./Runtime/tests/

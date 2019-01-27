@@ -41,7 +41,7 @@ class CacheTest extends TestCase
      
     public function testHset()
     {
-        $this->setExpectedException('Exception');
+        $this->expectException('Exception');
         $this->assertEquals(true,$this->cache->hset('hash','field','value'));
     }
     
