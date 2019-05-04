@@ -24,6 +24,9 @@ class UserController extends Controller
         exit('user');
     }
     
-    
+    public function login()
+    {
 
+        $res = $this->userService->login();
+    }
 }
