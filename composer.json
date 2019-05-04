@@ -8,6 +8,7 @@
     "psr/log": "^1.1",
     "predis/predis": "^1.1",
     "psr/container": "^1.0",
+    "twinkle/di": "^1.0",
     "thxyh99/zendframework": "dev-master"
   },
   "require-dev": {
